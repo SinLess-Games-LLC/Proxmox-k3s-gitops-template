@@ -1,0 +1,24 @@
+{
+    "recommendations": [
+        "microsoft.devcontainer-features",
+        "mikestead.dotenv",
+        "wholroyd.jinja",
+        "signageos.signageos-vscode-sops",
+        "redhat.ansible",
+        "microsoft.docker",
+        "microsoft.Kubernetes",
+        "prettier.prettier",
+        "albert.TabOut",
+        "britesnow.vscode-toggle-quotes",
+        "mikestead.dotenv",
+        "mitchdenny.ecdc",
+        "signageos.signageos-vscode-sops",
+        "will-stone.in-any-case",
+        "EditorConfig.editorconfig",
+        "PKief.material-icon-theme",
+        "amazonwebservices.aws-toolkit-vscode",
+        "mrmlnc.vscode-json5",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "psykosoldi3r.vscode-git-flow",
+  ]
+}

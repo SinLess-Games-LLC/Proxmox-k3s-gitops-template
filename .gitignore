@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+# Trash
+.DS_Store
+Thumbs.db
+# k8s
+kubeconfig
+.decrypted~*.yaml
+.config.env
+*.agekey
+*.pub
+*.key
+# Private
+.private
+# Ansible
+.venv*
+# Taskfile
+.task
+# Brew
+Brewfile.lock.json
+# intellij
+.idea
+# wiki
+wiki
+/tmp/

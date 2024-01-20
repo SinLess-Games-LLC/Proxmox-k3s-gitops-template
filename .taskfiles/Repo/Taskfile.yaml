@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+  add-changes:
+    desc: "Add changes to git"
+    cmds:
+      - cmd: git add .
+        silent: true
+
+  commit-changes:
+    desc: "Commit changes to git"
+    cmds:
+      - cmd: git commit -m "{{.Message}}"
+        for:
+          - commit-changes
+        silent: true
+        vars:
+          vars:
+            - name: Message
+              desc: "Commit message"
+              default: "Update"
+
+  push-changes:
+    desc: "Push changes to git"
+    cmds:
+      - cmd: git push
+        silent: true
+
+  pull-changes:
+    desc: "Pull changes from git"
+    cmds:
+      - cmd: git pull
+        silent: true
+
+  clean-repo:
+    desc: "Clean repo"
+    cmds:
+      - cmd: git clean -fd
+        silent: true
