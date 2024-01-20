@@ -17,7 +17,12 @@
 <br/>
 
 ---
-### Badges
+
+<div  align="center">
+  <h1 size="7">
+    Badges
+  </h1>
+</div>
 
 ![Made with Love](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by-SinLess%20Games%20LLC-red.svg?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/SinLess-Games-LLC/Helix-Ai-IaC?style=for-the-badge)
