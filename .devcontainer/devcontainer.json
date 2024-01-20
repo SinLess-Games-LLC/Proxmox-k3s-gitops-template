@@ -6,7 +6,7 @@
 	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
 	"privileged": true,
 	"postCreateCommand": {
-		"packer": "packer plugins install github.com/hashicorp/proxmox"
+		"init": "./.devcontainer/init/init.sh"
 	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
@@ -87,30 +87,31 @@
         "terminal.integrated.defaultProfile.linux": "zsh"
       },
       "extensions": [
-        "wholroyd.jinja",
-        "signageos.signageos-vscode-sops",
-        "redhat.ansible",
-        "ms-azuretools.vscode-docker",
-        "GitHub.copilot",
-        "ms-kubernetes-tools.vscode-kubernetes-tools",
-        "esbenp.prettier-vscode",
-        "ms-python.python",
-        "redhat.vscode-yaml",
-        "amazonwebservices.aws-toolkit-vscode",
-        "hashicorp.terraform",
-        "IvanArjona.cloudflaretunnel",
-        "hashicorp.hcl",
-        "eamodio.gitlens",
-        "DavidAnson.vscode-markdownlint",
-        "mrmlnc.vscode-json5",
-        "mikestead.dotenv",
-        "ms-vscode-remote.remote-containers",
-        "EditorConfig.EditorConfig",
-        "fcrespo82.markdown-table-formatter",
-        "PsykoSoldi3r.vscode-git-flow",
-        "mitchdenny.ecdc",
-        "albert.TabOut"
-      ]
+		"wholroyd.jinja",
+		"signageos.signageos-vscode-sops",
+		"redhat.ansible",
+		"ms-azuretools.vscode-docker",
+		"GitHub.copilot",
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
+		"esbenp.prettier-vscode",
+		"ms-python.python",
+		"redhat.vscode-yaml",
+		"amazonwebservices.aws-toolkit-vscode",
+		"hashicorp.terraform",
+		"IvanArjona.cloudflaretunnel",
+		"hashicorp.hcl",
+		"eamodio.gitlens",
+		"DavidAnson.vscode-markdownlint",
+		"mrmlnc.vscode-json5",
+		"mikestead.dotenv",
+		"ms-vscode-remote.remote-containers",
+		"EditorConfig.EditorConfig",
+		"fcrespo82.markdown-table-formatter",
+		"PsykoSoldi3r.vscode-git-flow",
+		"mitchdenny.ecdc",
+		"albert.TabOut",
+		"CodeReviewer14.cyber77-vscode"
+	]
     }
   }
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
