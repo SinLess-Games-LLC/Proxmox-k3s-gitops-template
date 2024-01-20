@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+vars:
+  BOOTSTRAP_DIR: "./bootstrap"
+  ANSIBLE_DIR: "./ansible"
+  KUBERNETES_DIR: "./kubernetes"
+
+env:
+  KUBECONFIG: "./kubeconfig"
+
+includes:
+  utilities:  "./.taskfiles/Utilities/Taskfile.yaml"
+  repo:       "./.taskfiles/Repo/Taskfile.yaml"
+
+tasks:
+
+  default: task -l
+

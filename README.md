@@ -1,4 +1,14 @@
-# Helix Ai IaC
+# Helix AI IaC
+
+[![GitHub release](https://img.shields.io/github/release/helix-ai-llc/helix-ai-iac.svg)]
+
+<p align="center">
+  <a href="https://helixaibot.com/" target="blank">
+    <img src="DOCS/images/logos/Favicon-01.png" width="350" alt="Helix Ai Logo" />
+  </a>
+</p>
+
+---
 
 ## Description
 

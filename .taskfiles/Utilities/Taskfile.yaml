@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+
+  configure-workstation-zsh:
+    desc: "Configure workstation for zsh"
+    cmds:
+      - cmd: direnv allow # Make sure direnv is allowed for the current directory
+        silent: true
+
+  configure-workstation-bash:
+    desc: "Configure workstation for bash"
+    cmds: 
+      - cmd: direnv allow  # Make sure direnv is allowed for the current directory
+        silent: true
