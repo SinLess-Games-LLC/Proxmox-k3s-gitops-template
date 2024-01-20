@@ -19,8 +19,8 @@
 ---
 ### Badges
 
-![Made with Love](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by-SinLess%20Games%20LLC-red.svg)
-![GitHub last commit](https://img.shields.io/github/last-commit/SinLess-Games-LLC/Helix-IaC)
+![Made with Love](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by-SinLess%20Games%20LLC-red.svg?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/SinLess-Games-LLC/Helix-Ia?style=for-the-badge)
 
 
 
