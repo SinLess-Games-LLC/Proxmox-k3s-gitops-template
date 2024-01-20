@@ -19,14 +19,10 @@
 ---
 ### Badges
 
-[![Build Status](https://dev.azure.com/helix-ai/Helix%20AI%20IaC/_apis/build/status/Helix%20AI%20IaC?branchName=develop)](https://dev.azure.com/helix-ai/Helix%20AI%20IaC/_build/latest?definitionId=1&branchName=develop)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Helix-AI_Helix-AI-IaC&metric=alert_status)](https://sonarcloud.io/dashboard?id=Helix-AI_Helix-AI-IaC)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Helix-AI_Helix-AI-IaC&metric=coverage)](https://sonarcloud.io/dashboard?id=Helix-AI_Helix-AI-IaC)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Helix-AI_Helix-AI-IaC&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=Helix-AI_Helix-AI-IaC)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Helix-AI_Helix-AI-IaC&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=Helix-AI_Helix-AI-IaC)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Helix-AI_Helix-AI-IaC&metric=security_rating)](https://sonarcloud.io/dashboard?id=Helix-AI_Helix-AI-IaC)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Helix-AI_Helix-AI-IaC&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Helix-AI_Helix-AI-IaC)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Helix-AI_Helix-AI-IaC&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Helix-AI_Helix-AI-IaC)
+![Made with Love](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by-SinLess%20Games%20LLC-red.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/SinLess-Games-LLC/Helix-IaC)
+
+
 
 ---
 

@@ -25,3 +25,6 @@ Brewfile.lock.json
 # wiki
 wiki
 /tmp/
+
+my-key.asc/
+my-key.asc
