@@ -1,12 +1,32 @@
-# Helix AI IaC
+<div  align="center">
+  <h1 size="7">
+    Helix AI IaC
+  </h1>
+</div>
+<br/>
+<br/>
+<div align="center">
+    <a href="https://helixaibot.com/" target="blank">
+        <img
+            src="https://github.com/SinLess-Games-LLC/Helix/blob/master/DOCS/images/logos/Favicon-01.png?raw=true"
+            width="350"
+            alt="Helix Ai Logo"
+        />
+    </a>
+</div>
+<br/>
 
-[![GitHub release](https://img.shields.io/github/release/helix-ai-llc/helix-ai-iac.svg)]
+---
+### Badges
 
-<p align="center">
-  <a href="https://helixaibot.com/" target="blank">
-    <img src="DOCS/images/logos/Favicon-01.png" width="350" alt="Helix Ai Logo" />
-  </a>
-</p>
+[![Build Status](https://dev.azure.com/helix-ai/Helix%20AI%20IaC/_apis/build/status/Helix%20AI%20IaC?branchName=develop)](https://dev.azure.com/helix-ai/Helix%20AI%20IaC/_build/latest?definitionId=1&branchName=develop)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Helix-AI_Helix-AI-IaC&metric=alert_status)](https://sonarcloud.io/dashboard?id=Helix-AI_Helix-AI-IaC)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Helix-AI_Helix-AI-IaC&metric=coverage)](https://sonarcloud.io/dashboard?id=Helix-AI_Helix-AI-IaC)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Helix-AI_Helix-AI-IaC&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=Helix-AI_Helix-AI-IaC)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Helix-AI_Helix-AI-IaC&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=Helix-AI_Helix-AI-IaC)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Helix-AI_Helix-AI-IaC&metric=security_rating)](https://sonarcloud.io/dashboard?id=Helix-AI_Helix-AI-IaC)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Helix-AI_Helix-AI-IaC&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Helix-AI_Helix-AI-IaC)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Helix-AI_Helix-AI-IaC&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Helix-AI_Helix-AI-IaC)
 
 ---
 
