@@ -20,7 +20,15 @@
 ### Badges
 
 ![Made with Love](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by-SinLess%20Games%20LLC-red.svg?style=for-the-badge)
-![GitHub last commit](https://img.shields.io/github/last-commit/SinLess-Games-LLC/Helix-Ia?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/SinLess-Games-LLC/Helix-Ai-IaC?style=for-the-badge)
+![Commits per month](https://img.shields.io/github/commit-activity/m/SinLess-Games-LLC/Helix-Ai-IaC?style=for-the-badge)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/SinLess-Games-LLC/Helix-Ai-IaC?style=for-the-badge)
+![GitHub contributors](https://img.shields.io/github/contributors/SinLess-Games-LLC/Helix-Ai-IaC?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/SinLess-Games-LLC/Helix-Ai-IaC?style=for-the-badge)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/SinLess-Games-LLC/Helix-Ai-IaC?style=for-the-badge)
+![GitHub Repo stars](https://img.shields.io/github/stars/SinLess-Games-LLC/Helix-Ai-IaC?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/SinLess-Games-LLC/Helix-Ai-IaC?style=for-the-badge)
+![GitHub watchers](https://img.shields.io/github/watchers/SinLess-Games-LLC/Helix-Ai-IaC?style=for-the-badge)
 
 
 
