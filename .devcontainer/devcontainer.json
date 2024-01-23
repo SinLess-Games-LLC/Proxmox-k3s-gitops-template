@@ -5,6 +5,10 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
 	"privileged": true,
+  	"containerEnv": {
+    	"KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig",
+    	"SOPS_AGE_KEY_FILE": "${containerWorkspaceFolder}/age.key"
+  	},
 	"postCreateCommand": {
 		"init": "./.devcontainer/init/init.sh"
 	},
@@ -28,18 +32,11 @@
 		"ghcr.io/devcontainers/features/terraform:1": {},
 		/**
 		  * Languages
-		  * - go
 		  * - python
-		  * - ruby
 		  */
 		"ghcr.io/devcontainers/features/python:1": {
-			"version": "3.11"
-		},
-		"ghcr.io/devcontainers/features/ruby:1": {
-			"version": "3.0.2"
-		},
-		"ghcr.io/devcontainers/features/go:1": {
-			"version": "1.17.1"
+			"version": "3.12",
+      "optimize": "true"
 		},
 		/**
 		  * Kubernetes tools
@@ -52,7 +49,6 @@
 		  * - kubectl-helm
 		  * - kustomize
 		  */
-		"ghcr.io/devcontainers-contrib/features/homebrew-package:1": {},
 		"ghcr.io/jsburckhardt/devcontainer-features/flux:1": {},
 		"ghcr.io/rio/features/kustomize:1": {},
 		"ghcr.io/gickis/devcontainer-features/kubeconform:1": {},
@@ -67,9 +63,7 @@
       * - go-task
       */
 		"ghcr.io/devcontainers/features/common-utils:2": {
-			"installZsh": true,
 			"configureZshAsDefaultShell": true,
-			"ohMyZsh": true
 		},
 		"ghcr.io/devcontainers-contrib/features/go-task:1": {},
 		"ghcr.io/devcontainers-contrib/features/direnv:1": {},
@@ -87,31 +81,27 @@
         "terminal.integrated.defaultProfile.linux": "zsh"
       },
       "extensions": [
-		"wholroyd.jinja",
-		"signageos.signageos-vscode-sops",
-		"redhat.ansible",
-		"ms-azuretools.vscode-docker",
-		"GitHub.copilot",
-		"ms-kubernetes-tools.vscode-kubernetes-tools",
-		"esbenp.prettier-vscode",
-		"ms-python.python",
-		"redhat.vscode-yaml",
-		"amazonwebservices.aws-toolkit-vscode",
-		"hashicorp.terraform",
-		"IvanArjona.cloudflaretunnel",
-		"hashicorp.hcl",
-		"eamodio.gitlens",
-		"DavidAnson.vscode-markdownlint",
-		"mrmlnc.vscode-json5",
-		"mikestead.dotenv",
-		"ms-vscode-remote.remote-containers",
-		"EditorConfig.EditorConfig",
-		"fcrespo82.markdown-table-formatter",
-		"PsykoSoldi3r.vscode-git-flow",
-		"mitchdenny.ecdc",
-		"albert.TabOut",
-		"CodeReviewer14.cyber77-vscode"
-	]
+        "wholroyd.jinja",
+        "signageos.signageos-vscode-sops",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "esbenp.prettier-vscode",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "redhat.ansible",
+        "redhat.vscode-yaml",
+        "amazonwebservices.aws-toolkit-vscode",
+        "hashicorp.terraform",
+        "hashicorp.hcl",
+        "eamodio.gitlens",
+        "DavidAnson.vscode-markdownlint",
+        "mrmlnc.vscode-json5",
+        "mikestead.dotenv",
+        "ms-vscode-remote.remote-containers",
+        "EditorConfig.EditorConfig",
+        "fcrespo82.markdown-table-formatter",
+        "PsykoSoldi3r.vscode-git-flow",
+        "CodeReviewer14.cyber77-vscode"
+      ]
     }
   }
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
