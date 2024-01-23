@@ -10,8 +10,14 @@
     	"SOPS_AGE_KEY_FILE": "${containerWorkspaceFolder}/age.key"
   	},
 	"postCreateCommand": {
-		"init": "./.devcontainer/init/init.sh"
-	},
+      "packer-proxmox": "packer plugins install github.com/hashicorp/proxmox",
+      "venv": "python3 -m venv .venv",
+      "activate": "source .venv/bin/activate",
+      "upgrade-pip": "python3 -m pip install --upgrade pip setuptools wheel",
+      "install-python-requirements": "python3 -m pip install -r ./requirements.txt",
+      "install-ansible-requirements": "ansible-galaxy install --role-file ./requirements.yaml"
+
+  },
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		// Age and sops
@@ -81,27 +87,29 @@
         "terminal.integrated.defaultProfile.linux": "zsh"
       },
       "extensions": [
-        "wholroyd.jinja",
-        "signageos.signageos-vscode-sops",
-        "ms-kubernetes-tools.vscode-kubernetes-tools",
-        "esbenp.prettier-vscode",
-        "ms-python.python",
-        "ms-python.vscode-pylance",
-        "redhat.ansible",
-        "redhat.vscode-yaml",
-        "amazonwebservices.aws-toolkit-vscode",
-        "hashicorp.terraform",
-        "hashicorp.hcl",
-        "eamodio.gitlens",
-        "DavidAnson.vscode-markdownlint",
-        "mrmlnc.vscode-json5",
-        "mikestead.dotenv",
-        "ms-vscode-remote.remote-containers",
-        "EditorConfig.EditorConfig",
-        "fcrespo82.markdown-table-formatter",
-        "PsykoSoldi3r.vscode-git-flow",
-        "CodeReviewer14.cyber77-vscode"
-      ]
+		"wholroyd.jinja",
+		"signageos.signageos-vscode-sops",
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
+		"esbenp.prettier-vscode",
+		"ms-python.python",
+		"ms-python.vscode-pylance",
+		"redhat.ansible",
+		"redhat.vscode-yaml",
+		"amazonwebservices.aws-toolkit-vscode",
+		"hashicorp.terraform",
+		"hashicorp.hcl",
+		"eamodio.gitlens",
+		"DavidAnson.vscode-markdownlint",
+		"mrmlnc.vscode-json5",
+		"mikestead.dotenv",
+		"ms-vscode-remote.remote-containers",
+		"EditorConfig.EditorConfig",
+		"fcrespo82.markdown-table-formatter",
+		"PsykoSoldi3r.vscode-git-flow",
+		"CodeReviewer14.cyber77-vscode",
+		"mitchdenny.ecdc",
+		"albert.TabOut"
+	]
     }
   }
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
