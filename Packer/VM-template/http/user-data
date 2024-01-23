@@ -13,6 +13,8 @@ autoinstall:
   packages:
     - qemu-guest-agent
     - sudo
+    - openssh-server
+    - net-tools
   storage:
     layout:
       name: direct
