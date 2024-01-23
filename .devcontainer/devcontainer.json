@@ -9,15 +9,27 @@
     	"KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig",
     	"SOPS_AGE_KEY_FILE": "${containerWorkspaceFolder}/age.key"
   	},
-	"postCreateCommand": {
+	"postStartCommand": {
       "packer-proxmox": "packer plugins install github.com/hashicorp/proxmox",
       "venv": "python3 -m venv .venv",
       "activate": "source .venv/bin/activate",
       "upgrade-pip": "python3 -m pip install --upgrade pip setuptools wheel",
       "install-python-requirements": "python3 -m pip install -r ./requirements.txt",
       "install-ansible-requirements": "ansible-galaxy install --role-file ./requirements.yaml",
-      "fetch-ssh-key": "curl -sL https://github.com/SinLess-Games.keys >> ~/.ssh/authorized_keys"
-  },
+      "fetch-ssh-key": "curl -sL 'https://github.com/SinLess-Games/keys' >> ~/.ssh/authorized_keys"
+  	},
+  	// forwarded ports
+  	"forwardPorts": [
+    	8802 // Packer http port
+  	],
+	"appPort": [
+		8002 // Packer http port
+	],
+	"portsAttributes": {
+		"3000": {
+			"label": "Packer http port"
+		}
+	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		// Age and sops
@@ -42,7 +54,7 @@
 		  */
 		"ghcr.io/devcontainers/features/python:1": {
 			"version": "3.12",
-      "optimize": "true"
+      		"optimize": "true"
 		},
 		/**
 		  * Kubernetes tools
@@ -87,29 +99,30 @@
         "terminal.integrated.defaultProfile.linux": "zsh"
       },
       "extensions": [
-		"wholroyd.jinja",
-		"signageos.signageos-vscode-sops",
-		"ms-kubernetes-tools.vscode-kubernetes-tools",
-		"esbenp.prettier-vscode",
-		"ms-python.python",
-		"ms-python.vscode-pylance",
-		"redhat.ansible",
-		"redhat.vscode-yaml",
-		"amazonwebservices.aws-toolkit-vscode",
-		"hashicorp.terraform",
-		"hashicorp.hcl",
-		"eamodio.gitlens",
-		"DavidAnson.vscode-markdownlint",
-		"mrmlnc.vscode-json5",
-		"mikestead.dotenv",
-		"ms-vscode-remote.remote-containers",
-		"EditorConfig.EditorConfig",
-		"fcrespo82.markdown-table-formatter",
-		"PsykoSoldi3r.vscode-git-flow",
-		"CodeReviewer14.cyber77-vscode",
-		"mitchdenny.ecdc",
-		"albert.TabOut"
-	]
+        "wholroyd.jinja",
+        "signageos.signageos-vscode-sops",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "esbenp.prettier-vscode",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "redhat.ansible",
+        "redhat.vscode-yaml",
+        "amazonwebservices.aws-toolkit-vscode",
+        "hashicorp.terraform",
+        "hashicorp.hcl",
+        "eamodio.gitlens",
+        "DavidAnson.vscode-markdownlint",
+        "mrmlnc.vscode-json5",
+        "mikestead.dotenv",
+        "ms-vscode-remote.remote-containers",
+        "EditorConfig.EditorConfig",
+        "fcrespo82.markdown-table-formatter",
+        "PsykoSoldi3r.vscode-git-flow",
+        "CodeReviewer14.cyber77-vscode",
+        "mitchdenny.ecdc",
+        "albert.TabOut",
+        "hediet.vscode-drawio"
+      ]
     }
   }
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
