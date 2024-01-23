@@ -15,8 +15,8 @@
       "activate": "source .venv/bin/activate",
       "upgrade-pip": "python3 -m pip install --upgrade pip setuptools wheel",
       "install-python-requirements": "python3 -m pip install -r ./requirements.txt",
-      "install-ansible-requirements": "ansible-galaxy install --role-file ./requirements.yaml"
-
+      "install-ansible-requirements": "ansible-galaxy install --role-file ./requirements.yaml",
+      "fetch-ssh-key": "curl -sL https://github.com/SinLess-Games.keys >> ~/.ssh/authorized_keys"
   },
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
