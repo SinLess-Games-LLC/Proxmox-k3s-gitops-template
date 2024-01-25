@@ -28,3 +28,7 @@ wiki
 
 /packer_cache/
 /bootstrap/.ssh/
+
+
+# ignore logs
+*.log
