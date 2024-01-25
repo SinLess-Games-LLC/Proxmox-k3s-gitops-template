@@ -26,5 +26,5 @@ Brewfile.lock.json
 wiki
 /tmp/
 
-my-key.asc/
-my-key.asc
+/packer_cache/
+/bootstrap/.ssh/
