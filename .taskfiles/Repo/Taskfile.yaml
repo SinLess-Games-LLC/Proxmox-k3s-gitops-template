@@ -1,41 +1,38 @@
 ---
+# This code belongs to onrdr0p
+# https://github.com/onedr0p/flux-cluster-template/blob/main/.taskfiles/Repository/Taskfile.yaml
+#
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
 tasks:
-  add-changes:
-    desc: "Add changes to git"
+  clean:
+    desc: Clean files and directories no longer needed after cluster bootstrap
     cmds:
-      - cmd: git add .
-        silent: true
+      # Move bootstrap directory to gitignored directory
+      - mv {{.BOOTSTRAP_DIR}} {{.PRIVATE_DIR}}/bootstrap-{{now | date "150405"}}
+      - mv {{.MAKEJINJA_CONFIG_FILE}} {{.PRIVATE_DIR}}/makejinja-{{now | date "150405"}}.toml
+      # Update renovate.json5
+      - sed -i {{if eq OS "darwin"}}''{{end}} 's/(..\.j2)\?//g' {{.ROOT_DIR}}/.github/renovate.json5
+    preconditions:
+      - { msg: "Missing bootstrap directory", sh: "test -d {{.BOOTSTRAP_DIR}}" }
+      - { msg: "Missing private directory", sh: "test -d {{.PRIVATE_DIR}}" }
+      - { msg: "Missing Renovate config file", sh: "test -f {{.ROOT_DIR}}/.github/renovate.json5" }
 
-  commit-changes:
-    desc: "Commit changes to git"
+  reset:
+    desc: Reset templated configuration files
+    prompt: Reset templated configuration files... continue?
     cmds:
-      - cmd: git commit -m "{{.Message}}"
-        for:
-          - commit-changes
-        silent: true
-        vars:
-          vars:
-            - name: Message
-              desc: "Commit message"
-              default: "Update"
+      - task: :ansible:.reset
+      - task: :k0s:.reset
+      - task: :kubernetes:.reset
+      - task: :sops:.reset
 
-  push-changes:
-    desc: "Push changes to git"
+  force-reset:
+    desc: Reset repo back to HEAD
+    prompt: Reset repo back to HEAD... continue?
     cmds:
-      - cmd: git push
-        silent: true
-
-  pull-changes:
-    desc: "Pull changes from git"
-    cmds:
-      - cmd: git pull
-        silent: true
-
-  clean-repo:
-    desc: "Clean repo"
-    cmds:
-      - cmd: git clean -fd
-        silent: true
+      - task: reset
+      - git reset --hard HEAD
+      - git clean -f -d
+      - git pull origin main

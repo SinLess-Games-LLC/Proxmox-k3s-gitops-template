@@ -3,16 +3,37 @@
 version: "3"
 
 vars:
-  BOOTSTRAP_DIR: "./bootstrap"
-  ANSIBLE_DIR: "./ansible"
-  KUBERNETES_DIR: "./kubernetes"
+  # Directories
+  ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
+  BOOTSTRAP_DIR: "{{.ROOT_DIR}}/bootstrap"
+  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
+  PRIVATE_DIR: "{{.ROOT_DIR}}/.private"
+  # Files
+  BOOTSTRAP_CONFIG_FILE: "{{.BOOTSTRAP_DIR}}/vars/config.yaml"
+  KUBECONFIG_FILE: "{{.ROOT_DIR}}/kubeconfig"
+  MAKEJINJA_CONFIG_FILE: "{{.ROOT_DIR}}/makejinja.toml"
+  PIP_REQUIREMENTS_FILE: "{{.ROOT_DIR}}/requirements.txt"
+  ANSIBLE_REQUIREMENTS_FILE: "{{.ROOT_DIR}}/requirements.yaml"
+  SOPS_AGE_FILE: "{{.ROOT_DIR}}/age.key"
+  # Binaries
+  PYTHON_BIN: python3
+  # Python
+  PYTHONDONTWRITEBYTECODE: "1"
 
 env:
   KUBECONFIG: "./kubeconfig"
 
 includes:
-  utilities:  "./.taskfiles/Utilities/Taskfile.yaml"
-  repo:       "./.taskfiles/Repo/Taskfile.yaml"
+  utilities:
+    aliases: ["util"]
+    taskfile: ./.taskfiles/Utilities/Taskfile.yaml
+  repository:
+    aliases: ["repo"]
+    taskfile: ./.taskfiles/Repo/Taskfile.yaml
+  kubernetes:
+    aliases: ["k8s", "k0s", "k3s"]
+    taskfile: .taskfiles/Kubernetes/Taskfile.yaml
+  sops: .taskfiles/Sops/Taskfile.yaml
 
 tasks:
 
