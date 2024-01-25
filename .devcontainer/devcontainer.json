@@ -50,8 +50,7 @@
 		  * - python
 		  */
 		"ghcr.io/devcontainers/features/python:1": {
-			"version": "3.12",
-			// "optimize": "true"
+			"version": "3.12"
 		},
 		/**
 		  * Kubernetes tools
@@ -94,33 +93,36 @@
             "path": "/bin/zsh"
           }
         },
-        "terminal.integrated.defaultProfile.linux": "zsh"
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        // change terminal fonnt size to 18
+        "terminal.integrated.fontSize": 18
       },
       "extensions": [
-        "wholroyd.jinja",
-        "signageos.signageos-vscode-sops",
-        "ms-kubernetes-tools.vscode-kubernetes-tools",
-        "esbenp.prettier-vscode",
-        "ms-python.python",
-        "ms-python.vscode-pylance",
-        "redhat.ansible",
-        "redhat.vscode-yaml",
-        "amazonwebservices.aws-toolkit-vscode",
-        "hashicorp.terraform",
-        "hashicorp.hcl",
-        "eamodio.gitlens",
-        "DavidAnson.vscode-markdownlint",
-        "mrmlnc.vscode-json5",
-        "mikestead.dotenv",
-        "ms-vscode-remote.remote-containers",
-        "EditorConfig.EditorConfig",
-        "fcrespo82.markdown-table-formatter",
-        "PsykoSoldi3r.vscode-git-flow",
-        "CodeReviewer14.cyber77-vscode",
-        "mitchdenny.ecdc",
-        "albert.TabOut",
-        "hediet.vscode-drawio"
-      ]
+		"wholroyd.jinja",
+		"signageos.signageos-vscode-sops",
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
+		"esbenp.prettier-vscode",
+		"ms-python.python",
+		"ms-python.vscode-pylance",
+		"redhat.ansible",
+		"redhat.vscode-yaml",
+		"amazonwebservices.aws-toolkit-vscode",
+		"hashicorp.terraform",
+		"hashicorp.hcl",
+		"eamodio.gitlens",
+		"DavidAnson.vscode-markdownlint",
+		"mrmlnc.vscode-json5",
+		"mikestead.dotenv",
+		"ms-vscode-remote.remote-containers",
+		"EditorConfig.EditorConfig",
+		"fcrespo82.markdown-table-formatter",
+		"PsykoSoldi3r.vscode-git-flow",
+		"CodeReviewer14.cyber77-vscode",
+		"mitchdenny.ecdc",
+		"albert.TabOut",
+		"hediet.vscode-drawio",
+		"ms-azuretools.vscode-docker"
+	  ]
     }
   }
 }
