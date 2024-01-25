@@ -1,35 +1,32 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/debian
 {
-	"name": "Archetecture (IaC) Dev Container",
+	"name": "Helix Ai (IaC) Dev Container",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
+	// "image": "mcr.microsoft.com/devcontainers/base:bullseye",
+  "build": {
+    "dockerfile": "./Dockerfile"
+  },
 	"privileged": true,
   	"containerEnv": {
     	"KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig",
     	"SOPS_AGE_KEY_FILE": "${containerWorkspaceFolder}/age.key"
-  	},
+  },
+  "postCreateCommand": {
+    "enable git indicators": "git config devcontainers-theme.show-dirty 1",
+    "direnv": "direnv allow",
+    "clone zsh-autosuggestions": "git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions",
+    "clone zsh-syntax-highlighting": "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+  },
 	"postStartCommand": {
       "packer-proxmox": "packer plugins install github.com/hashicorp/proxmox",
       "venv": "python3 -m venv .venv",
-      "activate": "source .venv/bin/activate",
       "upgrade-pip": "python3 -m pip install --upgrade pip setuptools wheel",
       "install-python-requirements": "python3 -m pip install -r ./requirements.txt",
       "install-ansible-requirements": "ansible-galaxy install --role-file ./requirements.yaml",
-      "fetch-ssh-key": "curl -sL 'https://github.com/SinLess-Games/keys' >> ~/.ssh/authorized_keys"
-  	},
-  	// forwarded ports
-  	"forwardPorts": [
-    	8802 // Packer http port
-  	],
-	"appPort": [
-		8002 // Packer http port
-	],
-	"portsAttributes": {
-		"3000": {
-			"label": "Packer http port"
-		}
-	},
+      "zsh plugins": "sed -i 's/plugins=(git)/plugins=(git ansible aws colorize bundler dotenv docker docker-compose direnv fluxcd git-flow git-commit git-extras gitignore helm istioctl kubectl sudo suse systemd terraform vagrant vault vscode zsh-interactive-cd zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc",
+      "zsh theme": "sed -i 's/ZSH_THEME=\"devcontainers\"/ZSH_THEME=\"strug\"/g' ~/.zshrc"
+    },
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		// Age and sops
@@ -54,7 +51,7 @@
 		  */
 		"ghcr.io/devcontainers/features/python:1": {
 			"version": "3.12",
-      		"optimize": "true"
+			// "optimize": "true"
 		},
 		/**
 		  * Kubernetes tools
@@ -80,9 +77,10 @@
       * - direnv
       * - go-task
       */
-		"ghcr.io/devcontainers/features/common-utils:2": {
-			"configureZshAsDefaultShell": true,
-		},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "configureZshAsDefaultShell": true,
+      "installOhMyZshConfig":false
+    },
 		"ghcr.io/devcontainers-contrib/features/go-task:1": {},
 		"ghcr.io/devcontainers-contrib/features/direnv:1": {},
 		"ghcr.io/dhoeric/features/stern:1": {},
@@ -125,9 +123,4 @@
       ]
     }
   }
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
 }
