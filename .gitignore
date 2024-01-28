@@ -32,3 +32,5 @@ wiki
 
 # ignore logs
 *.log
+
+.sops.yaml
