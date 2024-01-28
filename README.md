@@ -46,36 +46,34 @@ this repo utilizes the gitflow workflow. The master branch is protected and can 
 
 This repo does the following with a tasks:
 
-- Builds a packer image for a vm template
-- Builds a packer VM template in proxmox
-- Creates a VM for each host in the `/bootstrap/vars/config.yaml` file
-- deploys the VM template to each VM\
-- Prepares the VMs with the following:
-  - sets the hostname
-  - sets the timezone
-  - sets the locale
-  - sets the keyboard layout
-  - sets the ssh keys
-  - sets passwordless sudo
-- Prepares for the installation of the [Kubernetes cluster](/docs/Kubernetes.md)
-- Installs the [Kubernetes cluster](/docs/Kubernetes.md)
-- Sets up FluxCD for GitOps
-- sets up consul for service discovery
-- sets up vault for secrets management
-- sets up prometheus for monitoring
-- sets up grafana for monitoring
-- sets up loki for log aggregation
-- sets up tempo for tracing
-- sets up jaeger for tracing
-- sets up elasticsearch for log aggregation
-- sets up kibana for data visualization
-- sets up beats for log shipping
-- sets up logstash for log shipping
-- sets up redis for caching
-- sets up minio for object storage
-- sets up redis for caching
-- sets up rabbitmq for messaging
-- sets up mysql for database
+- [x] Builds a packer VM template in proxmox
+- [ ] Creates a VM for each host in the `/bootstrap/vars/config.yaml` file
+- [ ] Prepares the VMs with the following:
+  - [ ] sets the hostname
+  - [ ] sets the timezone
+  - [ ] sets the locale
+  - [ ] sets the keyboard layout
+  - [ ] sets the ssh keys
+  - [ ] sets passwordless sudo
+- [ ] Prepares for the installation of the [Kubernetes cluster](/docs/Kubernetes.md)
+- [ ] Installs the [Kubernetes cluster](/docs/Kubernetes.md)
+- [ ] Sets up FluxCD for GitOps
+- [ ] sets up consul for service discovery
+- [ ] sets up vault for secrets management
+- [ ] sets up prometheus for monitoring
+- [ ] sets up grafana for monitoring
+- [ ] sets up loki for log aggregation
+- [ ] sets up tempo for tracing
+- [ ] sets up jaeger for tracing
+- [ ] sets up elasticsearch for log aggregation
+- [ ] sets up kibana for data visualization
+- [ ] sets up beats for log shipping
+- [ ] sets up logstash for log shipping
+- [ ] sets up redis for caching
+- [ ] sets up minio for object storage
+- [ ] sets up redis for caching
+- [ ] sets up rabbitmq for messaging
+- [ ] sets up mysql for database
 
 ## FluxCD
 
