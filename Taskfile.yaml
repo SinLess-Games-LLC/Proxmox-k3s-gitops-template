@@ -4,17 +4,17 @@ version: "3"
 
 vars:
   # Directories
-  ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
+  ANSIBLE_DIR: "{{.ROOT_DIR}}/Ansible"
   BOOTSTRAP_DIR: "{{.ROOT_DIR}}/bootstrap"
-  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
+  KUBERNETES_DIR: "{{.ROOT_DIR}}/Kubernetes"
   PRIVATE_DIR: "{{.ROOT_DIR}}/.private"
+  PACKER_DIR: "{{.ROOT_DIR}}/Packer"
   # Files
   BOOTSTRAP_CONFIG_FILE: "{{.BOOTSTRAP_DIR}}/vars/config.yaml"
   KUBECONFIG_FILE: "{{.ROOT_DIR}}/kubeconfig"
   MAKEJINJA_CONFIG_FILE: "{{.ROOT_DIR}}/makejinja.toml"
   PIP_REQUIREMENTS_FILE: "{{.ROOT_DIR}}/requirements.txt"
-  ANSIBLE_REQUIREMENTS_FILE: "{{.ROOT_DIR}}/requirements.yaml"
-  SOPS_AGE_FILE: "{{.ROOT_DIR}}/age.key"
+  SOPS_AGE_FILE: "./age.key"
   # Binaries
   PYTHON_BIN: python3
   # Python
@@ -24,6 +24,9 @@ env:
   KUBECONFIG: "./kubeconfig"
 
 includes:
+  packer:
+    aliases: ["pack"]
+    taskfile: ./.taskfiles/Packer/Taskfile.yaml
   utilities:
     aliases: ["util"]
     taskfile: ./.taskfiles/Utilities/Taskfile.yaml
@@ -53,4 +56,26 @@ tasks:
     status:
       - test -f "{{.BOOTSTRAP_CONFIG_FILE}}"
 
+  configure:
+    desc: Configure repository from bootstrap vars
+    prompt: Any conflicting config in the root kubernetes and ansible directories will be overwritten... continue?
+    deps: ["utilities:direnv", "utilities:venv", "sops:age-keygen", "init"]
+    cmds:
+      - task: .template
+      - task: sops:encrypt
+      - task: packer:encrypt
+      # - task: .validate
 
+  .template:
+    internal: true
+    cmd: ./.venv/bin/makejinja
+    preconditions:
+      - { msg: "Missing virtual environment", sh: "test -d {{.ROOT_DIR}}/.venv" }
+      - { msg: "Missing Makejinja config file", sh: "test -f {{.MAKEJINJA_CONFIG_FILE}}" }
+      - { msg: "Missing Makejinja plugin file", sh: "test -f {{.BOOTSTRAP_DIR}}/scripts/plugin.py" }
+      - { msg: "Missing bootstrap config file", sh: "test -f {{.BOOTSTRAP_CONFIG_FILE}}" }
+
+  .validate:
+    internal: true
+    cmds:
+      - task: kubernetes:kubeconform
