@@ -30,6 +30,7 @@
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		// Age and sops
+    "ghcr.io/devcontainers-contrib/features/age-keygen:1": {},
 		"ghcr.io/devcontainers-contrib/features/age:1": {},
 		"ghcr.io/devcontainers-contrib/features/sops:1": {},
 		/**
@@ -83,7 +84,10 @@
 		"ghcr.io/devcontainers-contrib/features/go-task:1": {},
 		"ghcr.io/devcontainers-contrib/features/direnv:1": {},
 		"ghcr.io/dhoeric/features/stern:1": {},
-		"ghcr.io/eitsupi/devcontainer-features/jq-likes:2": {}
+		"ghcr.io/eitsupi/devcontainer-features/jq-likes:2": {
+      "jqVersion": "latest",
+      "yqVersion": "latest"
+    }
 	},
   "customizations": {
     "vscode": {
