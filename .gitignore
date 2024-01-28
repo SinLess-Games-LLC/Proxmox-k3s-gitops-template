@@ -25,3 +25,10 @@ Brewfile.lock.json
 # wiki
 wiki
 /tmp/
+
+/packer_cache/
+/bootstrap/.ssh/
+
+
+# ignore logs
+*.log

@@ -1,7 +1,0 @@
-
-brew "kubeconform"
-brew "kubernetes-cli"
-brew "kustomize"
-brew "moreutils"
-brew "talhelper"
-brew "yq"

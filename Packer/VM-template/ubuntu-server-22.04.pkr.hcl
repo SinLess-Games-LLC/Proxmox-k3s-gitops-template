@@ -17,28 +17,30 @@ variable "proxmox_api_token_secret" {
 }
 
 # Resource Definiation for the VM Template
-source "proxmox-iso" "ubuntu-server-2204" {
- 
+source "proxmox-iso" "ubuntu-server-2310" {
+
     # Proxmox Connection Settings
     proxmox_url = "${var.proxmox_api_url}"
     username = "${var.proxmox_api_token_id}"
     token = "${var.proxmox_api_token_secret}"
     # (Optional) Skip TLS Verification
     insecure_skip_tls_verify = true
-    
+
     # VM General Settings
     node = "pve"
     vm_id = "9000"
-    vm_name = "ubuntu-server-2204"
-    template_description = "Ubuntu Server 22.04 Image"
+    vm_name = "ubuntu-server-23.10"
+    template_description = "Ubuntu Server 23.10 Image"
 
     # VM OS Settings
     # (Option 1) Local ISO File
-    iso_file = "local:iso/ubuntu-22.04.3-live-server-amd64.iso"
+    iso_file = "local:iso/ubuntu-23.10-live-server-amd64.iso"
     # - or -
     # (Option 2) Download ISO
-    iso_url = "https://releases.ubuntu.com/22.04/ubuntu-22.04.3-live-server-amd64.iso"
-    iso_checksum = "a4acfda10b18da50e2ec50ccaf860d7f20b389df8765611142305c0e911d16fd"
+    iso_url = "https://releases.ubuntu.com/23.10/ubuntu-23.10-live-server-amd64.iso"
+    iso_checksum = "d2fb80d9ce77511ed500bcc1f813e6f676d4a3577009dfebce24269ca23346a5"
+    # iso_url = "https://releases.ubuntu.com/22.04/ubuntu-22.04.3-live-server-amd64.iso"
+    # iso_checksum = "a4acfda10b18da50e2ec50ccaf860d7f20b389df8765611142305c0e911d16fd"
     iso_storage_pool = "local"
     unmount_iso = true
 
@@ -52,22 +54,22 @@ source "proxmox-iso" "ubuntu-server-2204" {
     disks {
         disk_size = "20G"
         format = "raw"
-        storage_pool = "local-lvm"
+        storage_pool = "Group_2"
         type = "virtio"
     }
 
     # VM CPU Settings
     cores = "1"
-    
+
     # VM Memory Settings
-    memory = "2048" 
+    memory = "2048"
 
     # VM Network Settings
     network_adapters {
         model = "virtio"
         bridge = "vmbr0"
         firewall = "false"
-    } 
+    }
 
     # VM Cloud-Init Settings
     cloud_init = true
@@ -78,15 +80,15 @@ source "proxmox-iso" "ubuntu-server-2204" {
         "<esc><wait>",
         "e<wait>",
         "<down><down><down><end>",
-        "<bs><bs><bs><bs><wait>",
-        "autoinstall ds=nocloud-net\\;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ---<wait>",
+        "<bs><bs><bs><wait>",
+        "autoinstall ds=nocloud-net\\;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ <wait>",
         "<f10><wait>"
     ]
     boot = "c"
     boot_wait = "5s"
 
     # PACKER Autoinstall Settings
-    http_directory = "./Packer/VM-template/http" 
+    http_directory = "./Packer/VM-template/http"
     # (Optional) Bind IP Address and Port
     # http_bind_address = "0.0.0.0"
     # http_port_min = 8802
@@ -107,8 +109,8 @@ source "proxmox-iso" "ubuntu-server-2204" {
 # Build Definition to create the VM Template
 build {
 
-    name = "ubuntu-server-2204"
-    sources = ["source.proxmox-iso.ubuntu-server-2204"]
+    name = "ubuntu-server-23.10"
+    sources = ["source.proxmox-iso.ubuntu-server-2310"]
 
     # Provisioning the VM Template for Cloud-Init Integration in Proxmox #1
     provisioner "shell" {

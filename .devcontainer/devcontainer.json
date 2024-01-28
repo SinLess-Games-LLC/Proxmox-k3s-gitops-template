@@ -1,13 +1,32 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/debian
 {
-	"name": "Archetecture (IaC) Dev Container",
+	"name": "Helix Ai (IaC) Dev Container",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
+	// "image": "mcr.microsoft.com/devcontainers/base:bullseye",
+  "build": {
+    "dockerfile": "./Dockerfile"
+  },
 	"privileged": true,
-	"postCreateCommand": {
-		"packer": "packer plugins install github.com/hashicorp/proxmox"
-	},
+  	"containerEnv": {
+    	"KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig",
+    	"SOPS_AGE_KEY_FILE": "${containerWorkspaceFolder}/age.key"
+  },
+  "postCreateCommand": {
+    "enable git indicators": "git config devcontainers-theme.show-dirty 1",
+    "direnv": "direnv allow",
+    "clone zsh-autosuggestions": "git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions",
+    "clone zsh-syntax-highlighting": "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+  },
+	"postStartCommand": {
+      "packer-proxmox": "packer plugins install github.com/hashicorp/proxmox",
+      "venv": "python3 -m venv .venv",
+      "upgrade-pip": "python3 -m pip install --upgrade pip setuptools wheel",
+      "install-python-requirements": "python3 -m pip install -r ./requirements.txt",
+      "install-ansible-requirements": "ansible-galaxy install --role-file ./requirements.yaml",
+      "zsh plugins": "sed -i 's/plugins=(git)/plugins=(git ansible aws colorize bundler dotenv docker docker-compose direnv fluxcd git-flow git-commit git-extras gitignore helm istioctl kubectl sudo suse systemd terraform vagrant vault vscode zsh-interactive-cd zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc",
+      "zsh theme": "sed -i 's/ZSH_THEME=\"devcontainers\"/ZSH_THEME=\"strug\"/g' ~/.zshrc"
+    },
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		// Age and sops
@@ -28,18 +47,10 @@
 		"ghcr.io/devcontainers/features/terraform:1": {},
 		/**
 		  * Languages
-		  * - go
 		  * - python
-		  * - ruby
 		  */
 		"ghcr.io/devcontainers/features/python:1": {
-			"version": "3.11"
-		},
-		"ghcr.io/devcontainers/features/ruby:1": {
-			"version": "3.0.2"
-		},
-		"ghcr.io/devcontainers/features/go:1": {
-			"version": "1.17.1"
+			"version": "3.12"
 		},
 		/**
 		  * Kubernetes tools
@@ -52,7 +63,6 @@
 		  * - kubectl-helm
 		  * - kustomize
 		  */
-		"ghcr.io/devcontainers-contrib/features/homebrew-package:1": {},
 		"ghcr.io/jsburckhardt/devcontainer-features/flux:1": {},
 		"ghcr.io/rio/features/kustomize:1": {},
 		"ghcr.io/gickis/devcontainer-features/kubeconform:1": {},
@@ -66,11 +76,10 @@
       * - direnv
       * - go-task
       */
-		"ghcr.io/devcontainers/features/common-utils:2": {
-			"installZsh": true,
-			"configureZshAsDefaultShell": true,
-			"ohMyZsh": true
-		},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "configureZshAsDefaultShell": true,
+      "installOhMyZshConfig":false
+    },
 		"ghcr.io/devcontainers-contrib/features/go-task:1": {},
 		"ghcr.io/devcontainers-contrib/features/direnv:1": {},
 		"ghcr.io/dhoeric/features/stern:1": {},
@@ -84,38 +93,36 @@
             "path": "/bin/zsh"
           }
         },
-        "terminal.integrated.defaultProfile.linux": "zsh"
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        // change terminal fonnt size to 18
+        "terminal.integrated.fontSize": 18
       },
       "extensions": [
-        "wholroyd.jinja",
-        "signageos.signageos-vscode-sops",
-        "redhat.ansible",
-        "ms-azuretools.vscode-docker",
-        "GitHub.copilot",
-        "ms-kubernetes-tools.vscode-kubernetes-tools",
-        "esbenp.prettier-vscode",
-        "ms-python.python",
-        "redhat.vscode-yaml",
-        "amazonwebservices.aws-toolkit-vscode",
-        "hashicorp.terraform",
-        "IvanArjona.cloudflaretunnel",
-        "hashicorp.hcl",
-        "eamodio.gitlens",
-        "DavidAnson.vscode-markdownlint",
-        "mrmlnc.vscode-json5",
-        "mikestead.dotenv",
-        "ms-vscode-remote.remote-containers",
-        "EditorConfig.EditorConfig",
-        "fcrespo82.markdown-table-formatter",
-        "PsykoSoldi3r.vscode-git-flow",
-        "mitchdenny.ecdc",
-        "albert.TabOut"
-      ]
+		"wholroyd.jinja",
+		"signageos.signageos-vscode-sops",
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
+		"esbenp.prettier-vscode",
+		"ms-python.python",
+		"ms-python.vscode-pylance",
+		"redhat.ansible",
+		"redhat.vscode-yaml",
+		"amazonwebservices.aws-toolkit-vscode",
+		"hashicorp.terraform",
+		"hashicorp.hcl",
+		"eamodio.gitlens",
+		"DavidAnson.vscode-markdownlint",
+		"mrmlnc.vscode-json5",
+		"mikestead.dotenv",
+		"ms-vscode-remote.remote-containers",
+		"EditorConfig.EditorConfig",
+		"fcrespo82.markdown-table-formatter",
+		"PsykoSoldi3r.vscode-git-flow",
+		"CodeReviewer14.cyber77-vscode",
+		"mitchdenny.ecdc",
+		"albert.TabOut",
+		"hediet.vscode-drawio",
+		"ms-azuretools.vscode-docker"
+	  ]
     }
   }
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
 }
