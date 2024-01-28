@@ -2,121 +2,177 @@
 #
 # Bootstrap configuration - config.yaml is gitignored
 #
+system:
+  # Github username (e.g. onedr0p)
+  github:
+    username:
+    repository:
+      name:
+      branch: main
+  encryption:
+    # Age Public Key (e.g. age15uzrw396e67z9wdzsxzdk7ka0g2gr3l460e0slaea563zll3hdfqwqxdta)
+    age_public_key:
+  # Choose your timezone (e.g. America/New_York)
+  timezone: America/Denver
+  # SSL
+  ssl:
+    # Email you want to be associated with the ACME account (used for TLS certificates via letsencrypt.org)
+    acme_email:
+    # Use the ACME production env when requesting the wildcard certificate,
+    # the default here is `false` which means ACME staging env will be used instead.
+    # This is to prevent being rate-limited. Update this option to `true` when you
+    # have verified the staging certificate works and then re-run `task configure`
+    # and push your changes to Github.
+    acme_production_enabled: false
+  flux:
+    # Flux github webhook token (openssl rand -hex 12)
+    github_webhook_token:
 
-#
-# Github Configuration
-#
-# Github username (e.g. onedr0p)
-bootstrap_github_username:
-# Github repository (e.g. flux-cluster-template)
-bootstrap_github_repository_name:
-# Github repository branch (e.g. main)
-bootstrap_github_repository_branch: main
-# Flux github webhook token (openssl rand -hex 12)
-bootstrap_flux_github_webhook_token:
+  # The DNS server to use for the cluster, this can be an existing local DNS server or a public one
+  # If using a local DNS server make sure it meets the following requirements:
+  #   1. your nodes can reach it
+  #   2. it is configured to forward requests to a public DNS server
+  #   3. you are not force redirecting DNS requests to it - this will break cert generation over DNS01
+  dns_servers:
+    - 1.1.1.1
 
-#
-# Encryption Configuration
-#
-# Age Public Key (e.g. age15uzrw396e67z9wdzsxzdk7ka0g2gr3l460e0slaea563zll3hdfqwqxdta)
-bootstrap_age_public_key:
+  cloudflare:
+    # Cloudflare API Token (not API Key)
+    token:
+    # Cloudflared Account Tag (cat ~/.cloudflared/*.json | jq -r .AccountTag)
+    account_tag:
+    tunnels:
+          # Cloudflare domain
+        - domain:
+          # Cloudflared Tunnel Secret (cat ~/.cloudflared/*.json | jq -r .TunnelSecret)
+          secret:
+          # Cloudflared Tunnel ID (cat ~/.cloudflared/*.json | jq -r .TunnelID)
+          id:
+  # CIDR your nodes are on (e.g. 192.168.1.0/24)
+  node_cidr:
+  # The IP address of the Kube API, choose an available IP in your nodes network that is not being used
+  # (Optional) Leave this blank if you are deploying a single master node, this will disable kube-vip in k3s
+  # or keepalived in k0s and use the master node IP instead
+  kube_api_addr:
+  # The hostname of the Kube API, set this if you intend to call the Kube API by hostname rather than IP
+  # (Optional) This is currently only utilized in k0s and is added to the Kube API cert sans
+  # kubeapi_hostname:
+  # The Load balancer IP for k8s_gateway, choose an available IP in your nodes network that is not being used
+  k8s_gateway_addr:
+  # The Load balancer IP for external ingress, choose an available IP in your nodes network that is not being used
+  external_ingress_addr:
+  # The Load balancer IP for internal ingress, choose an available IP in your nodes network that is not being used
+  internal_ingress_addr:
 
-#
-# General Configuration
-#
-# Choose your timezone (e.g. America/New_York)
-bootstrap_timezone: Etc/UTC
-# Email you want to be associated with the ACME account (used for TLS certificates via letsencrypt.org)
-bootstrap_acme_email:
-# Use the ACME production env when requesting the wildcard certificate,
-# the default here is `false` which means ACME staging env will be used instead.
-# This is to prevent being rate-limited. Update this option to `true` when you
-# have verified the staging certificate works and then re-run `task configure`
-# and push your changes to Github.
-bootstrap_acme_production_enabled: false
+  # (Advanced) Cilium load balancer mode, choose either 'dsr' or 'snat'
+  # Due to unknown reasons some people need this set to 'snat' in order
+  # for Cilium L2 announcements to work properly. Keep this dsr unless
+  # you have issues with connecting to Cilium L2 announcements.
+  cilium_loadbalancer_mode: dsr
 
-#
-# Proxmox Credentials
-# 
-# This is the proxmox api secret generated in the proxmox web ui
-# Be sure to back this up somewhere safe as it is not recoverable
-# (e.g. 318d5e32-9dd8-4057-8621-23847568d344)
-bootstrap_proxmox_api_secret:
-# This is the proxmox api user (e.g. root@pam!Packer)
-bootstrap_proxmox_api_user:
-# This is the proxmox api host (e.g. 192.168.1.19)
-bootstrap_proxmox_api_host:
-# [ADVANCED]
-# This is the proxmox api port (e.g. 8006)
-# Default is 8006, but you can change this if you have a different port
-bootstrap_proxmox_api_port: 8006
+  # Keep the next three options default unless you know what you are doing
+  # (Advanced) Enable ipv6
+  ipv6_enabled: false
+  # (Advanced) For ipv6 use format 10.42.0.0/16,fd78:c889:47fb:10::/60
+  # /60 IPv6 block is enough for 16 nodes
+  cluster_cidr: 10.42.0.0/16
+  # (Advanced) For ipv6 use format 10.43.0.0/16,fd78:c889:47fb:e0::/112
+  service_cidr: 10.43.0.0/16
 
-#
-# Cloudflare Configuration
-#
-# Cloudflare domain
-bootstrap_cloudflare_domain:
-# Cloudflare API Token (not API Key)
-bootstrap_cloudflare_token:
-# Cloudflared Account Tag (cat ~/.cloudflared/*.json | jq -r .AccountTag)
-bootstrap_cloudflare_account_tag:
-# Cloudflared Tunnel Secret (cat ~/.cloudflared/*.json | jq -r .TunnelSecret)
-bootstrap_cloudflare_tunnel_secret:
-# Cloudflared Tunnel ID (cat ~/.cloudflared/*.json | jq -r .TunnelID)
-bootstrap_cloudflare_tunnel_id:
+  # (Advanced) Path for openebs openebs-hostpath to use for storage on ALL nodes
+  # (default is /var/openebs/local)
+  local_storage_path: /var/openebs/local
 
-#
-# Networking Configuration
-#
-# CIDR your nodes are on (e.g. 192.168.1.0/24)
-bootstrap_node_cidr:
-# The IP address of the Kube API, choose an available IP in your nodes network that is not being used
-# (Optional) Leave this blank if you are deploying a single master node, this will disable kube-vip in k3s
-# or keepalived in k0s and use the master node IP instead
-bootstrap_kube_api_addr:
-# The hostname of the Kube API, set this if you intend to call the Kube API by hostname rather than IP
-# (Optional) This is currently only utilized in k0s and is added to the Kube API cert sans
-# bootstrap_kubeapi_hostname:
-# The Load balancer IP for k8s_gateway, choose an available IP in your nodes network that is not being used
-bootstrap_k8s_gateway_addr:
-# The Load balancer IP for external ingress, choose an available IP in your nodes network that is not being used
-bootstrap_external_ingress_addr:
-# The Load balancer IP for internal ingress, choose an available IP in your nodes network that is not being used
-bootstrap_internal_ingress_addr:
+# configuration for the VM template creation
+template:
+  # Whether or not to allow root login
+  # ( yes | no )
+  root_login: "yes"
+  proxmox:
+    # This is the ip address of the proxmox server
+    ip: ""
+    # This is the port of the proxmox server
+    # (Advanced) If you are using a non-standard port for the proxmox api (default is 8006
+    port: 8006
+    api:
+      # This is the user id of the proxmox server api
+      token_id: ""
+      # This is the user secret of the proxmox server api
+      token_secret:  ""
+    # This turns off tls verification for the proxmox api
+      skip_tls_verify: true
+    # This is the node name of the proxmox server
+    # (default is pve)
+    node_name: "pve"
+  vm:
+    # This is the id of the VM template
+    id: 9000
+    # This is the name of the VM template
+    name: "ubuntu-server-23.10-template"
+    # This is the number of cores for the VM template
+    cores: 1
+    # This is the amount of memory for the VM template
+    memory: 2048
+    # This is whether or not to use the qemu agent
+    # By default it is enabled as the template defaults to using the qemu agent and installs qemu-guest-agent
+    qemu_agent: true
+    # This enables or disables if the vm should start on boot
+    onboot: true
+    # This is the scsi controller for the VM template
+    # (default is virtio-scsi-pci)
+    scsi_controller: "virtio-scsi-pci"
+  iso:
+    # This is the name of the iso file to use for the VM template
+    # do not add 'local:iso/' to the name it is added automatically
+    file: "ubuntu-23.10-live-server-amd64.iso"
+    # This is the url of the iso file to use to download the iso file
+    url: "https://releases.ubuntu.com/23.10/ubuntu-23.10-live-server-amd64.iso"
+    # This is the checksum of the iso file to use to verify the iso file
+    checksum: "d2fb80d9ce77511ed500bcc1f813e6f676d4a3577009dfebce24269ca23346a5"
+    # This is the storage pool to use for the iso file
+    # (Advanced) If you are using a non-standard storage pool for the iso (default is local)
+    storage_pool: "local"
+    # This dismounts the iso file after the VM template is created
+    unmount_iso: true
+  ssh:
+    # This is the username to use for the ssh connection
+    username: ""
+    password:
+      # This sets the demplate to enable or disable password authentication
+      # It is recomending to disable password authentication
+      # ( yes | no )
+      authentication: yes
+      # This is the password to use for the ssh connection
+      raw: ""
+      # This is the encrypted password to use for the ssh connection
+      # generaate using (openssl passwd -6 -salt $(openssl rand -hex 8) "password")
+      encrypted: ""
+    # This is the path to the private key to use for the ssh connection
+    private_key_file: ""
+    # This is the path to the public key to use for the ssh connection
+    public_key_file: ""
+    # This is the port to use for the ssh connection
+    # (Advanced) If you are using a non-standard port for the ssh connection (default is 22)
+    port: 22
+    # This is the timeout to use for the ssh connection
+    # (Advanced) If you are using a non-standard timeout for the ssh connection (default is 30m)
+    timeout: "30m"
+    # This is the handshake attempts to use for the ssh connection
+    # (Advanced)
+    handshake_attempts: 100000
+    ssh_authorized_keys:
+      # - ssh-ed25519 xxxxxxxxxxxxxxxxxxxx ********@google.com
+      # - ssh-256 xxxxxxxxxxxxxxxxxxxx ********@google.com
 
-# (Advanced) Cilium load balancer mode, choose either 'dsr' or 'snat'
-# Due to unknown reasons some people need this set to 'snat' in order
-# for Cilium L2 announcements to work properly. Keep this dsr unless
-# you have issues with connecting to Cilium L2 announcements.
-bootstrap_cilium_loadbalancer_mode: dsr
-
-# Keep the next three options default unless you know what you are doing
-# (Advanced) Enable ipv6
-bootstrap_ipv6_enabled: false
-# (Advanced) For ipv6 use format 10.42.0.0/16,fd78:c889:47fb:10::/60
-# /60 IPv6 block is enough for 16 nodes
-bootstrap_cluster_cidr: 10.42.0.0/16
-# (Advanced) For ipv6 use format 10.43.0.0/16,fd78:c889:47fb:e0::/112
-bootstrap_service_cidr: 10.43.0.0/16
-
-# (Advanced) Path for openebs openebs-hostpath to use for storage on ALL nodes
-bootstrap_local_storage_path: /var/openebs/local
-
-#
 # Node information
-#
 bootstrap_nodes:
   # Use only 1, 3 or more odd master nodes, recommended is 3
   master:
-    # - name:     # name or hostname of the master node (must match [a-z0-9-\.]+)
-    #   address:  # ip address of the master node
+    # - name: # name of the master node (must match [a-z0-9-]+)
+    #   address: # ip address of the master node
     #   username: # ssh username of the master node
-    #   role:     # (Optional) k0s only: can be controller+worker (default) or controller
-    #   # external_address: # (Optional) k3s only: Only use when SSH is not reachable on the IP specified in 'address' field
-    # ...
   worker: # set to [] or omit if no workers are needed
-    # - name:     # name or hostname of the worker node (must match [a-z0-9-\.]+)
-    #   address:  # ip address of the worker node
-    #   username: # ssh username of the worker node
-    #   # external_address: # (Optional) k3s only: Only use when SSH is not reachable on the IP specified in 'address' field
-    # ...
+    # - name:  # name of the master node (must match [a-z0-9-]+)
+    #   address: # ip address of the master node
+    #   username: # ssh username of the master node
+
