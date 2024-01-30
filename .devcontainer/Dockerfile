@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/devcontainers/base:bullseye
 
 # Install apt packages
-RUN sudo apt-get update -y \
+RUN sudo apt-get update -y --fix-missing \
     && sudo apt-get install -y genisoimage qemu-utils qemu-system ovmf cloud-image-utils make curtain git curl zsh
 
 # Install oh-my-zsh

@@ -10,7 +10,7 @@
 	"privileged": true,
   	"containerEnv": {
     	"KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig",
-    	"SOPS_AGE_KEY_FILE": "${containerWorkspaceFolder}/age.key"
+    	"SOPS_AGE_KEY_FILE": "${containerWorkspaceFolder}/.age.key"
   },
   "postCreateCommand": {
     "enable git indicators": "git config devcontainers-theme.show-dirty 1",
@@ -20,7 +20,7 @@
   },
 	"postStartCommand": {
       "packer-proxmox": "packer plugins install github.com/hashicorp/proxmox",
-      "venv": "python3 -m venv .venv",
+      "venv": "sudo rm -rf .venv && python3 -m venv .venv",
       "upgrade-pip": "python3 -m pip install --upgrade pip setuptools wheel",
       "install-python-requirements": "python3 -m pip install -r ./requirements.txt",
       "install-ansible-requirements": "ansible-galaxy install --role-file ./requirements.yaml",
@@ -44,7 +44,9 @@
 		"ghcr.io/devcontainers/features/aws-cli:1": {},
 		"ghcr.io/devcontainers-contrib/features/cloudflared:1": {},
 		"ghcr.io/devcontainers-contrib/features/ansible:2": {},
-		"ghcr.io/devcontainers-contrib/features/packer-asdf:2": {},
+		"ghcr.io/devcontainers-contrib/features/packer-asdf:2": {
+      		"version": "1.8.4"
+    	},
 		"ghcr.io/devcontainers/features/terraform:1": {},
 		/**
 		  * Languages
