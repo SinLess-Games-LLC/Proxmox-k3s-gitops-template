@@ -38,7 +38,7 @@ autoinstall:
         ssh_authorized_keys:
           #% for item in template.ssh.authorized_keys %#
           - #{ item }#
-        #% endfor %#
+          #% endfor %#
   late-commands:
     - sed -i -e 's/^#\?PasswordAuthentication.*/PasswordAuthentication #{ template.ssh.password.authentication|lower }#/g' /target/etc/ssh/sshd_config
     - sed -i -e 's/^#\?PermitRootLogin.*/PermitRootLogin #{ template.root_login }#/g' /target/etc/ssh/sshd_config

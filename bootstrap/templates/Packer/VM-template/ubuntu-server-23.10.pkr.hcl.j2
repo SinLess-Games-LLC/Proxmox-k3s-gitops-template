@@ -157,10 +157,10 @@ source "proxmox-iso" "ubuntu-server-2310" {
     scsi_controller = var.vm_scsi_controller
 
     disks {
-        disk_size    = "20G"
-        format       = "raw"
-        storage_pool = "Group_2"
-        type         = "scsi"
+      disk_size    = "100G"
+      format       = "raw"
+      storage_pool = "Group_3"
+      type         = "scsi"
     }
 
     # VM CPU Settings

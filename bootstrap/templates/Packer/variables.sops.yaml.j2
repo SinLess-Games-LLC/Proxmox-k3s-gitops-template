@@ -1,24 +1,23 @@
-stringData:
-  proxmox_api_url: "https://#{ template.proxmox.ip }#:#{ template.proxmox.port }#/api2/json"
-  proxmox_api_token_id: "#{ template.proxmox.api.token_id }#"
-  proxmox_api_token_secret: "#{ template.proxmox.api.token_secret }#"
-  proxmox_api_skip_tls_verify: #{ template.proxmox.skip_tls_verify|lower }#
-  proxmox_node_name: "#{ template.proxmox.node_name }#"
-  vm_id: #{ template.vm.id }#
-  vm_name: "#{ template.vm.name }#"
-  vm_cores: #{ template.vm.cores }#
-  vm_memory: #{ template.vm.memory }#
-  vm_qemu_agent: #{ template.vm.qemu_agent|lower }#
-  vm_onboot: #{ template.vm.onboot|lower }#
-  vm_scsi_controller: "#{ template.vm.scsi_controller }#"
-  iso_file: "local:iso/#{ template.iso.file }#"
-  iso_url: "#{ template.iso.url }#"
-  iso_checksum: "#{ template.iso.checksum }#"
-  iso_storage_pool: "#{ template.iso.storage_pool }#"
-  unmount_iso: #{ template.iso.unmount_iso|lower }#
-  ssh_username: "#{ template.ssh.username }#"
-  ssh_password: "#{ template.ssh.password.raw }#"
-  ssh_private_key_file: "#{ template.ssh.private_key_file }#"
-  ssh_port: #{ template.ssh.port }#
-  ssh_timeout: "#{ template.ssh.timeout }#"
-  ssh_handshake_attempts: #{ template.ssh.handshake_attempts }#
+proxmox_api_url: "https://#{ template.proxmox.ip }#:#{ template.proxmox.port }#/api2/json"
+proxmox_api_token_id: "#{ template.proxmox.api.token_id }#"
+proxmox_api_token_secret: "#{ template.proxmox.api.token_secret }#"
+proxmox_api_skip_tls_verify: #{ template.proxmox.skip_tls_verify|lower }#
+proxmox_node_name: "#{ template.proxmox.node_name }#"
+vm_id: #{ template.vm.id }#
+vm_name: "#{ template.vm.name }#"
+vm_cores: #{ template.vm.cores }#
+vm_memory: #{ template.vm.memory }#
+vm_qemu_agent: #{ template.vm.qemu_agent|lower }#
+vm_onboot: #{ template.vm.onboot|lower }#
+vm_scsi_controller: "#{ template.vm.scsi_controller }#"
+iso_file: "local:iso/#{ template.iso.file }#"
+iso_url: "#{ template.iso.url }#"
+iso_checksum: "#{ template.iso.checksum }#"
+iso_storage_pool: "#{ template.iso.storage_pool }#"
+unmount_iso: #{ template.iso.unmount_iso|lower }#
+ssh_username: "#{ template.ssh.username }#"
+ssh_password: "#{ template.ssh.password.raw }#"
+ssh_private_key_file: "#{ template.ssh.private_key_file }#"
+ssh_port: #{ template.ssh.port }#
+ssh_timeout: "#{ template.ssh.timeout }#"
+ssh_handshake_attempts: #{ template.ssh.handshake_attempts }#
