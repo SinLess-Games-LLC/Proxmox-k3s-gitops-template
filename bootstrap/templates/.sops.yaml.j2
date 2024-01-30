@@ -14,3 +14,7 @@ creation_rules:
     key_groups:
       - age:
           - "#{ system.encryption.age_public_key }#"
+  - path_regex: Terraform/.*\.sops\.ya?ml
+    key_groups:
+      - age:
+          - "#{ system.encryption.age_public_key }#"

@@ -11,6 +11,10 @@ tasks:
     desc: Validate templated configuration files
     cmd: packer validate -var-file="{{.VAR_FILE}}" ./Packer/VM-template/ubuntu-server-23.10.pkr.hcl
 
+  validate:masters:
+    desc: Validate templated configuration files
+    cmd: packer validate -var-file="{{.VAR_FILE}}" ./Packer/Master-Nodes/master-nodes.pkr.hcl
+
   # This step takes roughly ~10 - ~15 minutes to complete
   yaml-to-json:
     desc: Convert YAML to JSON
@@ -27,6 +31,17 @@ tasks:
     preconditions:
       - cmds:
         - task validate
+
+  build:masters:
+    desc: Build VM template
+    cmds:
+      - task packer:decrypt
+      - task packer:yaml-to-json
+      - task packer:validate:masters
+      - packer build -var-file="{{.VAR_FILE}}" ./Packer/Master-Nodes/master-nodes.pkr.hcl
+    preconditions:
+      - cmds:
+        - task validate:masters
 
   encrypt:
     desc: Encrypt all Packer SOPS secrets that are not already encrypted
@@ -53,7 +68,7 @@ tasks:
 
   .encrypt-file:
     internal: true
-    cmd: sops --encrypt --in-place {{.file}}
+    cmd: SOPS_AGE_KEY_FILE={{.SOPS_AGE_FILE}} sops --encrypt --in-place {{.file}}
     requires:
       vars: ["file"]
     preconditions:
@@ -62,7 +77,7 @@ tasks:
 
   .decrypt-file:
     internal: true
-    cmd: sops --decrypt --in-place {{.file}}
+    cmd: SOPS_AGE_KEY_FILE={{.SOPS_AGE_FILE}} sops --decrypt --in-place {{.file}}
     requires:
       vars: ["file"]
     preconditions:

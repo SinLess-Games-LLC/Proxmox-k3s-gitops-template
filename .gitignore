@@ -34,3 +34,8 @@ wiki
 *.log
 
 .sops.yaml
+/.terraform/
+
+.terraform/
+
+*.log

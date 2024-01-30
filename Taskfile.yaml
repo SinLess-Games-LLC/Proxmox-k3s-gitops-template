@@ -14,7 +14,7 @@ vars:
   KUBECONFIG_FILE: "{{.ROOT_DIR}}/kubeconfig"
   MAKEJINJA_CONFIG_FILE: "{{.ROOT_DIR}}/makejinja.toml"
   PIP_REQUIREMENTS_FILE: "{{.ROOT_DIR}}/requirements.txt"
-  SOPS_AGE_FILE: "./age.key"
+  SOPS_AGE_FILE: "{{.ROOT_DIR}}/.age.key"
   # Binaries
   PYTHON_BIN: python3
   # Python
@@ -36,6 +36,9 @@ includes:
   kubernetes:
     aliases: ["k8s", "k0s", "k3s"]
     taskfile: .taskfiles/Kubernetes/Taskfile.yaml
+  terraform:
+    aliases: ["tf"]
+    taskfile: ./.taskfiles/Terraform/Taskfile.yaml
   sops: .taskfiles/Sops/Taskfile.yaml
 
 tasks:
@@ -59,11 +62,12 @@ tasks:
   configure:
     desc: Configure repository from bootstrap vars
     prompt: Any conflicting config in the root kubernetes and ansible directories will be overwritten... continue?
-    deps: ["utilities:direnv", "utilities:venv", "sops:age-keygen", "init"]
+    deps: ["utilities:direnv", "utilities:venv", "init"]
     cmds:
       - task: .template
       - task: sops:encrypt
       - task: packer:encrypt
+      - task: terraform:encrypt
       # - task: .validate
 
   .template:

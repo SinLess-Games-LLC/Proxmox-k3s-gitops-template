@@ -3,6 +3,8 @@
 # Bootstrap configuration - config.yaml is gitignored
 #
 system:
+  gateway_addr:
+  nameserver:
   # Github username (e.g. onedr0p)
   github:
     username:
@@ -160,7 +162,7 @@ template:
     # This is the handshake attempts to use for the ssh connection
     # (Advanced)
     handshake_attempts: 100000
-    ssh_authorized_keys:
+    authorized_keys:
       # - ssh-ed25519 xxxxxxxxxxxxxxxxxxxx ********@google.com
       # - ssh-256 xxxxxxxxxxxxxxxxxxxx ********@google.com
 
