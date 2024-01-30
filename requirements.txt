@@ -8,5 +8,5 @@ makejinja==2.5.0
 netaddr==0.10.1
 openshift==0.13.2
 passlib==1.7.4
-cryptography==42.0.1
+cryptography==42.0.2
 passlib==1.7.4
