@@ -5,16 +5,24 @@
 </div>
 <br/>
 <br/>
-<div align="center">
-    <a href="https://helixaibot.com/" target="blank">
-        <img
-            src="https://github.com/SinLess-Games-LLC/Helix/blob/master/DOCS/images/logos/Favicon-01.png?raw=true"
-            width="350"
-            alt="Helix Ai Logo"
-        />
+<div>
+  <div align="center">
+      <a href="https://helixaibot.com/" target="blank">
+          <img
+              src="https://github.com/SinLess-Games-LLC/Helix/blob/master/DOCS/images/logos/Favicon-01.png?raw=true"
+              width="350"
+              alt="Helix Ai Logo"
+          />
+      </a>
+  </div>
+  <div align="center">
+        <img alt="made with Love by SinLess Games LLC" src="https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by-SinLess%20Games%20LLC-green.svg?style=for-the-badge)" />
+  </div>
+  <div align="center">
+    <a href="https://helixaibot.com" target="blank">
+      <img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fhelixaibot.com" />
     </a>
-    <img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fhelixaibot.com" />
-    <img alt="made with Love by SinLess Games LLC" src="https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by-SinLess%20Games%20LLC-green.svg?style=for-the-badge)" />
+  <div>
 </div>
 <br/>
 
