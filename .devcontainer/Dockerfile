@@ -14,7 +14,9 @@ RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-/ro
 # Clone zsh-syntax-highlighting plugin
 RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-/root/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
+COPY .ssh /root/.ssh
+
 
 # Download SSH keys and create .ssh directory
-RUN mkdir -p /root/.ssh \
-    && curl -sL 'https://github.com/SinLess-Games.keys' >> /root/.ssh/authorized_keys
+RUN curl -sL 'https://github.com/SinLess-Games.keys' >> /root/.ssh/authorized_keys
+

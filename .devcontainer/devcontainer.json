@@ -26,7 +26,9 @@
       "install-python-requirements": "python3 -m pip install -r ./requirements.txt",
       "install-ansible-requirements": "ansible-galaxy install --role-file ./requirements.yaml",
       "zsh plugins": "sed -i 's/plugins=(git)/plugins=(git ansible aws colorize bundler dotenv docker docker-compose direnv fluxcd git-flow git-commit git-extras gitignore helm istioctl kubectl sudo suse systemd terraform vagrant vault vscode zsh-interactive-cd zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc",
-      "zsh theme": "sed -i 's/ZSH_THEME=\"devcontainers\"/ZSH_THEME=\"strug\"/g' ~/.zshrc"
+      "zsh theme": "sed -i 's/ZSH_THEME=\"devcontainers\"/ZSH_THEME=\"strug\"/g' ~/.zshrc",
+      "ssh1": "cp ./.ssh/id_ed25519 ~/.ssh/id_ed25519 && cp ./.ssh/id_ed25519.pub ~/.ssh/id_ed25519.pub",
+      "ssh2": "chmod 600 ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519.pub"
     },
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
