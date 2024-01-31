@@ -3,18 +3,18 @@ creation_rules:
   - path_regex: Ansible/.*\.sops\.ya?ml
     key_groups:
       - age:
-          - "#{ system.encryption.age_public_key }#"
+          - "#{ encryption.age_public_key }#"
 
   - path_regex: Kubernetes/.*\.sops\.ya?ml
     key_groups:
       - age:
-          - "#{ system.encryption.age_public_key }#"
+          - "#{ encryption.age_public_key }#"
 
   - path_regex: Packer/.*\.sops\.ya?ml
     key_groups:
       - age:
-          - "#{ system.encryption.age_public_key }#"
+          - "#{ encryption.age_public_key }#"
   - path_regex: Terraform/.*\.sops\.ya?ml
     key_groups:
       - age:
-          - "#{ system.encryption.age_public_key }#"
+          - "#{ encryption.age_public_key }#"
