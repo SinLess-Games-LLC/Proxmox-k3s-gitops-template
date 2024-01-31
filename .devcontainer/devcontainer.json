@@ -10,7 +10,8 @@
 	"privileged": true,
   	"containerEnv": {
     	"KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig",
-    	"SOPS_AGE_KEY_FILE": "${containerWorkspaceFolder}/.age.key"
+    	"SOPS_AGE_KEY_FILE": "${containerWorkspaceFolder}/.age.key",
+      "TZ": "America/Denver"
   },
   "postCreateCommand": {
     "enable git indicators": "git config devcontainers-theme.show-dirty 1",

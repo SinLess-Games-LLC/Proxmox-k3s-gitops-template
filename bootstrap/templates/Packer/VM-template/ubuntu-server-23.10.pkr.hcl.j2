@@ -37,43 +37,11 @@ variable "proxmox_api_token_secret" {
     sensitive = true
 }
 
-variable "proxmox_api_skip_tls_verify" {
-    type = bool
-    default = true
-}
-
 variable "proxmox_node_name" {
     type = string
 }
 
-variable "vm_id" {
-    type = number
-}
-
-variable "vm_name" {
-    type = string
-}
-
-variable "vm_cores" {
-    type = number
-}
-
-variable "vm_memory" {
-    type = number
-}
-
-variable "vm_qemu_agent" {
-    type = bool
-}
-
-variable "vm_onboot" {
-    type = bool
-}
-
-variable "vm_scsi_controller" {
-    type = string
-}
-
+# iso settings
 variable "iso_file" {
     type = string
 }
@@ -108,18 +76,6 @@ variable "ssh_private_key_file" {
     sensitive = true
 }
 
-variable "ssh_port" {
-    type = number
-}
-
-variable "ssh_timeout" {
-    type = string
-}
-
-variable "ssh_handshake_attempts" {
-    type = number
-}
-
 ##################################################################################
 # SOURCE
 ##################################################################################
@@ -131,13 +87,11 @@ source "proxmox-iso" "ubuntu-server-2310" {
     proxmox_url = var.proxmox_api_url
     username = var.proxmox_api_token_id
     token = var.proxmox_api_token_secret
-    # (Optional) Skip TLS Verification
-    insecure_skip_tls_verify = var.proxmox_api_skip_tls_verify
 
     # VM General Settings
     node = var.proxmox_node_name
-    vm_id = var.vm_id
-    vm_name = var.vm_name
+    vm_id = 9000
+    vm_name = ubuntu-server-23.10-template
     template_description = "Ubuntu Server 23.10 Image. Built by HashiCorp Packer on ${local.buildtime}."
     # VM OS Settings
     # (Option 1) Local ISO File
@@ -147,14 +101,14 @@ source "proxmox-iso" "ubuntu-server-2310" {
     iso_url          = var.iso_url
     iso_checksum     = var.iso_checksum
     iso_storage_pool = var.iso_storage_pool
-    unmount_iso = var.unmount_iso
+    unmount_iso = true
 
     # VM System Settings
-    qemu_agent = var.vm_qemu_agent
-    onboot = var.vm_onboot
+    qemu_agent = true
+    onboot = true
 
     # VM Hard Disk Settings
-    scsi_controller = var.vm_scsi_controller
+    scsi_controller = "virtio-scsi-pci"
 
     disks {
       disk_size    = "100G"
@@ -164,10 +118,10 @@ source "proxmox-iso" "ubuntu-server-2310" {
     }
 
     # VM CPU Settings
-    cores = var.vm_cores
+    cores = 1
 
     # VM Memory Settings
-    memory = var.vm_memory
+    memory = 2048
 
     # VM Network Settings
     network_adapters {
@@ -201,17 +155,6 @@ source "proxmox-iso" "ubuntu-server-2310" {
       cd_label = "cidata"
       iso_storage_pool = "local"
     }
-    # I personally was unable to get this to work for me, thus i would advise against it
-    # USE AT YOUR OWN RISK
-    # http_directory = "Packer/VM-template/http"
-    # http_content = {
-    #   "/user-data" = file("./http/user-data"),
-    #   "/meta-data" = file("./http/meta-data")
-    # }
-    # (Optional) Bind IP Address and Port
-    # http_bind_address = "0.0.0.0"
-    # http_port_min = 8802
-    # http_port_max = 8802
 
     ssh_username = var.ssh_username
     # (Option 1) Add your Password here

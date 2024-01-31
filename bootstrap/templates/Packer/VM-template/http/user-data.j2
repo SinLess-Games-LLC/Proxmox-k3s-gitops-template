@@ -16,8 +16,8 @@ autoinstall:
     allow_public_ssh_keys: true
   identity:
     hostname: "ubuntu"
-    username: "#{ template.ssh.username }#"
-    password: "#{ template.ssh.password.encrypted }#"
+    username: "#{ ssh.username }#"
+    password: "#{ ssh.password.encrypted }#"
   storage:
     layout:
       name: direct
@@ -28,7 +28,7 @@ autoinstall:
     disable_root: true
     timezone: #{ system.timezone }#
     users:
-      - name: #{ template.ssh.username }#
+      - name: #{ ssh.username }#
         groups:
           - adm
           - sudo
@@ -36,12 +36,12 @@ autoinstall:
         sudo: ALL=(ALL) NOPASSWD:ALL
         shell: /bin/bash
         ssh_authorized_keys:
-          #% for item in template.ssh.authorized_keys %#
+          #% for item in ssh.authorized_keys %#
           - #{ item }#
           #% endfor %#
   late-commands:
-    - sed -i -e 's/^#\?PasswordAuthentication.*/PasswordAuthentication #{ template.ssh.password.authentication|lower }#/g' /target/etc/ssh/sshd_config
-    - sed -i -e 's/^#\?PermitRootLogin.*/PermitRootLogin #{ template.root_login }#/g' /target/etc/ssh/sshd_config
+    - sed -i -e 's/^#\?PasswordAuthentication.*/PasswordAuthentication no#/g' /target/etc/ssh/sshd_config
+    - sed -i -e 's/^#\?PermitRootLogin.*/PermitRootLogin no/g' /target/etc/ssh/sshd_config
     - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
     - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/ubuntu
     - curtin in-target --target=/target -- apt-get update
