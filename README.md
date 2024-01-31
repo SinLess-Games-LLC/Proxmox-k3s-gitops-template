@@ -13,6 +13,8 @@
             alt="Helix Ai Logo"
         />
     </a>
+    <img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fhelixaibot.com" />
+    <img alt="made with Love by SinLess Games LLC" src="https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by-SinLess%20Games%20LLC-green.svg?style=for-the-badge)" />
 </div>
 <br/>
 
@@ -24,7 +26,6 @@
   </h1>
 </div>
 
-![Made with Love](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by-SinLess%20Games%20LLC-red.svg?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/SinLess-Games-LLC/Helix-Ai-IaC?style=for-the-badge)
 ![Commits per month](https://img.shields.io/github/commit-activity/m/SinLess-Games-LLC/Helix-Ai-IaC?style=for-the-badge)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/SinLess-Games-LLC/Helix-Ai-IaC?style=for-the-badge)
