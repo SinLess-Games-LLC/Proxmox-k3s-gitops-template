@@ -44,8 +44,6 @@
 ![GitHub forks](https://img.shields.io/github/forks/SinLess-Games-LLC/Helix-Ai-IaC?style=for-the-badge)
 ![GitHub watchers](https://img.shields.io/github/watchers/SinLess-Games-LLC/Helix-Ai-IaC?style=for-the-badge)
 
-
-
 ---
 
 ## Description

@@ -23,11 +23,11 @@ tasks:
 
   plan:
     desc: Generate Terraform execution plan
-    cmd: terraform -chdir={{.TERRAFORM_DIR}} plan
+    cmd: terraform -chdir={{.TERRAFORM_DIR}} plan -out=tfplan -input=false
 
   apply:
     desc: Apply Terraform changes
-    cmd: terraform -chdir={{.TERRAFORM_DIR}} apply
+    cmd: terraform -chdir={{.TERRAFORM_DIR}} apply -input=false tfplan
 
   destroy:
     desc: Destroy Terraform resources

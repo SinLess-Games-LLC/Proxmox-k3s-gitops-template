@@ -6,6 +6,13 @@
 version: "3"
 
 tasks:
+  init:
+    desc: Initialize repository
+    cmds:
+      - python3 -m pip install --upgrade pip setuptools wheel
+      - python3 -m pip install --upgrade -r requirements.txt
+      - ansible-galaxy install --role-file ./requirements.yaml
+
   clean:
     desc: Clean files and directories no longer needed after cluster bootstrap
     cmds:

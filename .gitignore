@@ -39,3 +39,5 @@ wiki
 .terraform/
 
 *.log
+
+.ssh/
