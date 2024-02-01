@@ -21,10 +21,12 @@ locals {
 
 resource "proxmox_vm_qemu" "k8s-master-1" {
   count = #{ bootstrap_nodes.master|length }#
-  name = "k8s-master-1${count.index + 1}"
+  name = "k8s-master-${count.index + 1}"
+  vmid = 200 + count.index
   desc = "Kubernetes Master Node${count.index + 1}, created by Terraform on ${local.buildtime}"
   target_node = var.proxmox_node
   clone = var.cloudinit_template_name
+  full_clone = false
   agent = 1
   os_type = "cloud-init"
   cores = 4
@@ -38,12 +40,12 @@ resource "proxmox_vm_qemu" "k8s-master-1" {
     slot = 0
     size = "40G"
     type = "scsi"
-    storage = "pve1"
+    storage = "Group_3"
   }
 
   network {
     model = "virtio"
-    bridge = "vmbr2"
+    bridge = "vmbr0"
   }
 
   lifecycle {
@@ -52,9 +54,11 @@ resource "proxmox_vm_qemu" "k8s-master-1" {
     ]
   }
 
-  ipconfig0 = "ip=#{ system.cidr[:-4] }#.10${count.index + 1}/24,gw=#{ system.gateway_addr }#"
+  ipconfig0 = "ip=#{ system.cidr[:-5] }#.10${count.index + 1}/24,gw=#{ system.gateway_addr }#"
+  searchdomain = "k8s-master-${count.index + 1}.local"
   nameserver = "#{ system.nameserver }#"
 
+  ssh_user = "sinless777"
   sshkeys = <<EOF
   ${var.ssh_key}
   EOF
@@ -63,10 +67,12 @@ resource "proxmox_vm_qemu" "k8s-master-1" {
 
 resource "proxmox_vm_qemu" "k8s-worker-1" {
   count = #{ bootstrap_nodes.worker|length }#
-  name = "k8s-worker-1${count.index + 1}"
-  desc = "Kubernetes Worker Node${count.index + 1}, created by Terraform on ${local.buildtime}"
+  name = "k8s-worker-${count.index + 1}"
+  vmid = 250 + count.index
+  desc = "Kubernetes Worker Node ${count.index + 1}, created by Terraform on ${local.buildtime}"
   target_node = var.proxmox_node
   clone = var.cloudinit_template_name
+  full_clone = false
   agent = 1
   os_type = "cloud-init"
   cores = 4
@@ -80,12 +86,12 @@ resource "proxmox_vm_qemu" "k8s-worker-1" {
     slot = 0
     size = "40G"
     type = "scsi"
-    storage = "pve1"
+    storage = "Group_3"
   }
 
   network {
     model = "virtio"
-    bridge = "vmbr2"
+    bridge = "vmbr0"
   }
 
   lifecycle {
@@ -94,9 +100,11 @@ resource "proxmox_vm_qemu" "k8s-worker-1" {
     ]
   }
 
-  ipconfig0 = "ip=#{ system.cidr[:-4] }#.10${count.index + 1}/24,gw=#{ system.gateway_addr }#"
+  ipconfig0 = "ip=#{ system.cidr[:-5] }#.15${count.index + 1}/24,gw=#{ system.gateway_addr }#"
+  searchdomain = "k8s-worker-${count.index + 1}.local"
   nameserver = "#{ system.nameserver }#"
 
+  ssh_user = "sinless777"
   sshkeys = <<EOF
   ${var.ssh_key}
   EOF

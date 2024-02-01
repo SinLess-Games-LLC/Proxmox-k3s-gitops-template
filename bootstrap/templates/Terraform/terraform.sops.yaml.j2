@@ -1,4 +1,4 @@
-pm_api_url: "https://#{ proxmox.ip }#:#{ template.proxmox.port }#/api2/json"
+pm_api_url: "https://#{ proxmox.ip }#:#{ proxmox.port }#/api2/json"
 cloudinit_template_name: "debian-11-cloudinit-template"
 proxmox_node: #{ proxmox.node_name }#
 ssh_key: #{ ssh.authorized_keys[0] }#
