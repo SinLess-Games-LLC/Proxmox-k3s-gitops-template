@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+  namespace: flux-system
+data:
+  TIMEZONE: "{{ system.timezone }}"
+  CLUSTER_CIDR: "{{ kubernetes.cluster_cidr.split(',')[0] }}"
+  NODE_CIDR: "{{ system.cidr }}"

@@ -1,0 +1,109 @@
+# taken from: https://www.lorenzobettini.it/2023/07/my-ansible-role-for-oh-my-zsh-and-other-cli-programs/
+---
+# tasks file for oh_my_zsh
+- name: Install Git
+  become: true
+  ansible.builtin.package:
+    state: present
+    name: git
+
+- name: Install ZSH
+  become: true
+  ansible.builtin.package:
+    name: zsh
+    state: present
+
+- name: Override powerline fonts package name for Debian.
+  ansible.builtin.set_fact:
+    powerlinefonts: fonts-powerline
+  when: ansible_os_family == 'Debian'
+
+- name: Install Powerline fonts
+  become: true
+  ansible.builtin.package:
+    state: present
+    name: "{% raw %}{{ powerlinefonts }} {% endraw %}"
+
+- name: Install ripgrep
+  become: true
+  ansible.builtin.package:
+    state: present
+    name: ripgrep
+
+- name: Install procs in Arch/Fedora
+  become: true
+  ansible.builtin.package:
+    state: present
+    name: procs
+  when: ansible_os_family != 'Debian'
+
+# unzip is useful for extracting zips
+- name: Install unzip
+  become: true
+  ansible.builtin.package:
+    state: present
+    name: unzip
+
+- name: Install dust on Arch
+  become: true
+  ansible.builtin.package:
+    state: present
+    name: dust
+  when: ansible_os_family == 'Archlinux'
+
+- name: Install Google Noto emoji fonts
+  become: true
+  ansible.builtin.package:
+    state: present
+    name: noto-fonts-emoji
+  when: ansible_os_family == 'Archlinux'
+
+# To get "icons" in exa output
+- name: Install Patched font Arimo from nerd-fonts (Arch)
+  become: true
+  ansible.builtin.package:
+    state: present
+    name: ttf-arimo-nerd
+  when: ansible_os_family == 'Archlinux'
+
+- name: Install Oh My Zsh # noqa: latest
+  ansible.builtin.git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: ~/.oh-my-zsh
+    depth: 1
+
+- name: Install zsh-autosuggestions plugin # noqa: latest
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    depth: 1
+
+- name: Install zsh-completions plugin # noqa: latest
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-completions
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-completions
+    depth: 1
+
+- name: Install zsh-syntax-highlighting plugin # noqa: latest
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    depth: 1
+
+- name: Change user shell to zsh
+  become: true
+  ansible.builtin.user:
+    name: "{% raw %}{{ ansible_user }}{% endraw %}"
+    shell: /bin/zsh
+
+- name: Create ~/.zshrc
+  ansible.builtin.copy:
+    content: |
+      export ZSH="/home/{% raw %}{{ ansible_user }}{% endraw %}/.oh-my-zsh"
+      ZSH_THEME="strug"
+      plugins=(git zsh-autosuggestions zsh-completions zsh-syntax-highlighting git ansible aws colorize bundler dotenv docker docker-compose direnv fluxcd git-flow git-commit git-extras gitignore helm istioctl kubectl sudo suse systemd terraform vagrant vault vscode zsh-interactive-cd)
+      source $ZSH/oh-my-zsh.sh
+    dest: /home/{% raw %}{{ ansible_user }}{% endraw %}/.zshrc
+    owner: "{% raw %}{{ ansible_user }}{% endraw %}"
+    group: "{% raw %}{{ ansible_user }}{% endraw %}"
+    mode: '0644'

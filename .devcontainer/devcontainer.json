@@ -7,29 +7,29 @@
   "build": {
     "dockerfile": "./Dockerfile"
   },
-	"privileged": true,
-  	"containerEnv": {
-    	"KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig",
-    	"SOPS_AGE_KEY_FILE": "${containerWorkspaceFolder}/age.key"
+  "containerEnv": {
+    "KUBECONFIG": "/workspaces/Archetecture/kubeconfig",
+    "SOPS_AGE_KEY_FILE": "/workspaces/Archetecture/.age.key"
   },
+	"privileged": true,
   "postCreateCommand": {
     "enable git indicators": "git config devcontainers-theme.show-dirty 1",
     "direnv": "direnv allow",
     "clone zsh-autosuggestions": "git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions",
-    "clone zsh-syntax-highlighting": "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+    "clone zsh-syntax-highlighting": "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting",
+    "packer-proxmox": "packer plugins install github.com/hashicorp/proxmox",
+    "upgrade-pip": "python3 -m pip install --upgrade pip setuptools wheel",
+    "install-python-requirements": "python3 -m pip install -r ./requirements.txt",
+    "install-ansible-requirements": "ansible-galaxy install --role-file ./requirements.yaml",
+    "zsh plugins": "sed -i 's/plugins=(git)/plugins=(git ansible aws docker docker-compose fluxcd helm kubectl sudo suse systemd terraform zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc",
+    "zsh theme": "sed -i 's/ZSH_THEME=\"devcontainers\"/ZSH_THEME=\"strug\"/g' ~/.zshrc",
+    "ssh1": "cp ./.ssh/id_ed25519 ~/.ssh/id_ed25519 && cp ./.ssh/id_ed25519.pub ~/.ssh/id_ed25519.pub",
+    "ssh2": "chmod 600 ~/.ssh/id_ed25519"
   },
-	"postStartCommand": {
-      "packer-proxmox": "packer plugins install github.com/hashicorp/proxmox",
-      "venv": "python3 -m venv .venv",
-      "upgrade-pip": "python3 -m pip install --upgrade pip setuptools wheel",
-      "install-python-requirements": "python3 -m pip install -r ./requirements.txt",
-      "install-ansible-requirements": "ansible-galaxy install --role-file ./requirements.yaml",
-      "zsh plugins": "sed -i 's/plugins=(git)/plugins=(git ansible aws colorize bundler dotenv docker docker-compose direnv fluxcd git-flow git-commit git-extras gitignore helm istioctl kubectl sudo suse systemd terraform vagrant vault vscode zsh-interactive-cd zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc",
-      "zsh theme": "sed -i 's/ZSH_THEME=\"devcontainers\"/ZSH_THEME=\"strug\"/g' ~/.zshrc"
-    },
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		// Age and sops
+    "ghcr.io/devcontainers-contrib/features/age-keygen:1": {},
 		"ghcr.io/devcontainers-contrib/features/age:1": {},
 		"ghcr.io/devcontainers-contrib/features/sops:1": {},
 		/**
@@ -43,7 +43,9 @@
 		"ghcr.io/devcontainers/features/aws-cli:1": {},
 		"ghcr.io/devcontainers-contrib/features/cloudflared:1": {},
 		"ghcr.io/devcontainers-contrib/features/ansible:2": {},
-		"ghcr.io/devcontainers-contrib/features/packer-asdf:2": {},
+		"ghcr.io/devcontainers-contrib/features/packer-asdf:2": {
+      		"version": "1.8.4"
+    	},
 		"ghcr.io/devcontainers/features/terraform:1": {},
 		/**
 		  * Languages
@@ -66,24 +68,26 @@
 		"ghcr.io/jsburckhardt/devcontainer-features/flux:1": {},
 		"ghcr.io/rio/features/kustomize:1": {},
 		"ghcr.io/gickis/devcontainer-features/kubeconform:1": {},
-		"ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
-           "minikube": "none"
-		},
+		"ghcr.io/devcontainers-contrib/features/kubectl-asdf:2": {},
 		"ghcr.io/audacioustux/devcontainers/cilium:1": {},
 		/**
       * Common utils
       * - zsh
       * - direnv
       * - go-task
+      * - homebrew
       */
     "ghcr.io/devcontainers/features/common-utils:2": {
       "configureZshAsDefaultShell": true,
-      "installOhMyZshConfig":false
+      "installOhMyZshConfig": true
     },
 		"ghcr.io/devcontainers-contrib/features/go-task:1": {},
 		"ghcr.io/devcontainers-contrib/features/direnv:1": {},
 		"ghcr.io/dhoeric/features/stern:1": {},
-		"ghcr.io/eitsupi/devcontainer-features/jq-likes:2": {}
+		"ghcr.io/eitsupi/devcontainer-features/jq-likes:2": {
+      "jqVersion": "latest",
+      "yqVersion": "latest"
+    }
 	},
   "customizations": {
     "vscode": {
@@ -98,31 +102,32 @@
         "terminal.integrated.fontSize": 18
       },
       "extensions": [
-		"wholroyd.jinja",
-		"signageos.signageos-vscode-sops",
-		"ms-kubernetes-tools.vscode-kubernetes-tools",
-		"esbenp.prettier-vscode",
-		"ms-python.python",
-		"ms-python.vscode-pylance",
-		"redhat.ansible",
-		"redhat.vscode-yaml",
-		"amazonwebservices.aws-toolkit-vscode",
-		"hashicorp.terraform",
-		"hashicorp.hcl",
-		"eamodio.gitlens",
-		"DavidAnson.vscode-markdownlint",
-		"mrmlnc.vscode-json5",
-		"mikestead.dotenv",
-		"ms-vscode-remote.remote-containers",
-		"EditorConfig.EditorConfig",
-		"fcrespo82.markdown-table-formatter",
-		"PsykoSoldi3r.vscode-git-flow",
-		"CodeReviewer14.cyber77-vscode",
-		"mitchdenny.ecdc",
-		"albert.TabOut",
-		"hediet.vscode-drawio",
-		"ms-azuretools.vscode-docker"
-	  ]
+        "wholroyd.jinja",
+        "signageos.signageos-vscode-sops",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "esbenp.prettier-vscode",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "redhat.ansible",
+        "redhat.vscode-yaml",
+        "amazonwebservices.aws-toolkit-vscode",
+        "hashicorp.terraform",
+        "hashicorp.hcl",
+        "eamodio.gitlens",
+        "DavidAnson.vscode-markdownlint",
+        "mrmlnc.vscode-json5",
+        "mikestead.dotenv",
+        "ms-vscode-remote.remote-containers",
+        "EditorConfig.EditorConfig",
+        "fcrespo82.markdown-table-formatter",
+        "PsykoSoldi3r.vscode-git-flow",
+        "CodeReviewer14.cyber77-vscode",
+        "mitchdenny.ecdc",
+        "albert.TabOut",
+        "hediet.vscode-drawio",
+        "ms-azuretools.vscode-docker",
+        "tamasfe.even-better-toml"
+	    ]
     }
   }
 }

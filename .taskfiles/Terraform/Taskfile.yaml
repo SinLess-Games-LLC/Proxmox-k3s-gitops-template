@@ -1,0 +1,78 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+vars:
+  TERRAFORM_DIR: "{{.ROOT_DIR}}/Terraform"
+  YAML_FILE: "{{.TERRAFORM_DIR}}/terraform.sops.yaml"
+  VAR_FILE: "{{.TERRAFORM_DIR}}/variables.auto.tfvars.json"
+
+tasks:
+  init:
+    desc: Initialize Terraform
+    cmds:
+      - task tf:decrypt
+      - task tf:yaml-to-json
+      - task tf:encrypt
+      - terraform -chdir={{.TERRAFORM_DIR}} init
+
+  yaml-to-json:
+    desc: Convert YAML to JSON
+    cmds:
+      - yq eval '.' {{.YAML_FILE}} -j > {{.VAR_FILE}}
+
+  plan:
+    desc: Generate Terraform execution plan
+    cmd: terraform -chdir={{.TERRAFORM_DIR}} plan -out=tfplan -input=false
+
+  apply:
+    desc: Apply Terraform changes
+    cmd: terraform -chdir={{.TERRAFORM_DIR}} apply -input=false tfplan
+
+  destroy:
+    desc: Destroy Terraform resources
+    cmd: terraform -chdir={{.TERRAFORM_DIR}} destroy
+
+  encrypt:
+    desc: Encrypt all Terraform SOPS secrets that are not already encrypted
+    preconditions:
+      - { msg: "Missing Sops Age key file", sh: "test -f {{.SOPS_AGE_FILE}}" }
+    cmds:
+      - for: { var: file }
+        task: .encrypt-file
+        vars:
+          file: "{{.ITEM}}"
+    vars:
+      file:
+        sh: find "{{.TERRAFORM_DIR}}" -type f -name "*.sops.*" -exec grep -L "ENC\[AES256_GCM" {} \;
+
+  decrypt:
+    desc: Decrypt all Terraform SOPS secrets that are encrypted
+    preconditions:
+      - { msg: "Missing Sops Age key file", sh: "test -f {{.SOPS_AGE_FILE}}" }
+    cmds:
+      - for: { var: file }
+        task: .decrypt-file
+        vars:
+          file: "{{.ITEM}}"
+    vars:
+      file:
+        sh: find "{{.TERRAFORM_DIR}}" -type f -name "*.sops.*" -exec grep -l "ENC\[AES256_GCM" {} \;
+
+  .encrypt-file:
+    internal: true
+    cmd: SOPS_AGE_KEY_FILE={{.SOPS_AGE_FILE}} sops --encrypt --in-place {{.file}}
+    requires:
+      vars: ["file"]
+    preconditions:
+      - { msg: "Missing Sops config file", sh: "test -f {{.SOPS_CONFIG_FILE}}" }
+      - { msg: "Missing Sops Age key file", sh: "test -f {{.SOPS_AGE_FILE}}" }
+
+  .decrypt-file:
+    internal: true
+    cmd: SOPS_AGE_KEY_FILE={{.SOPS_AGE_FILE}} sops --decrypt --in-place {{.file}}
+    requires:
+      vars: ["file"]
+    preconditions:
+      - { msg: "Missing Sops config file", sh: "test -f {{.SOPS_CONFIG_FILE}}" }
+      - { msg: "Missing Sops Age key file", sh: "test -f {{.SOPS_AGE_FILE}}" }

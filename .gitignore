@@ -32,3 +32,12 @@ wiki
 
 # ignore logs
 *.log
+
+.sops.yaml
+/.terraform/
+
+.terraform/
+
+*.log
+
+.ssh/
