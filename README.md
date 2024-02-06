@@ -1,6 +1,6 @@
 # Proxmox k3s GitOps Repository
 
-> [!IMPORTANT%]
+> [!IMPORTANT]
 > This repository is a template to manage your Infrastructure as Code (IaC) using GitOps with k3s and Flux.
 > This cluster also makes use of [devcontainers](https://code.visualstudio.com/docs/remote/containers) to provide a consistent development environment.
 
