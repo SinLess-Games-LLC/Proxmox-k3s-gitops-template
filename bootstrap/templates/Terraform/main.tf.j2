@@ -19,8 +19,8 @@ locals {
   buildtime = formatdate("MM-DD-YYYY hh:mm ZZZ", timestamp())
 }
 
-resource "proxmox_vm_qemu" "k8s-master-1" {
-  count = #{ bootstrap_nodes.master|length }#
+resource "proxmox_vm_qemu" "k8s-masters" {
+  count = {{ bootstrap_nodes.master|length }}
   name = "k8s-master-${count.index + 1}"
   vmid = 200 + count.index
   desc = "Kubernetes Master Node${count.index + 1}, created by Terraform on ${local.buildtime}"
@@ -32,15 +32,15 @@ resource "proxmox_vm_qemu" "k8s-master-1" {
   cores = 4
   sockets = 1
   cpu = "host"
-  memory = 4096
+  memory = 8192
   scsihw = "virtio-scsi-pci"
   bootdisk = "scsi0"
 
   disk {
     slot = 0
-    size = "40G"
+    size = "100G"
     type = "scsi"
-    storage = "Group_3"
+    storage = "Group_4"
   }
 
   network {
@@ -54,19 +54,17 @@ resource "proxmox_vm_qemu" "k8s-master-1" {
     ]
   }
 
-  ipconfig0 = "ip=#{ system.cidr[:-5] }#.10${count.index + 1}/24,gw=#{ system.gateway_addr }#"
-  searchdomain = "k8s-master-${count.index + 1}.local"
-  nameserver = "#{ system.nameserver }#"
+  ipconfig0 = "ip={{ system.cidr[:-5] }}.${100 + count.index}/24,gw={{ system.gateway_addr }}"
 
-  ssh_user = "sinless777"
+  ssh_user = "{{ ssh.username }}"
   sshkeys = <<EOF
   ${var.ssh_key}
   EOF
 
 }
 
-resource "proxmox_vm_qemu" "k8s-worker-1" {
-  count = #{ bootstrap_nodes.worker|length }#
+resource "proxmox_vm_qemu" "k8s-workers" {
+  count = {{ bootstrap_nodes.worker|length }}
   name = "k8s-worker-${count.index + 1}"
   vmid = 250 + count.index
   desc = "Kubernetes Worker Node ${count.index + 1}, created by Terraform on ${local.buildtime}"
@@ -78,13 +76,13 @@ resource "proxmox_vm_qemu" "k8s-worker-1" {
   cores = 4
   sockets = 1
   cpu = "host"
-  memory = 4096
+  memory = 8192
   scsihw = "virtio-scsi-pci"
   bootdisk = "scsi0"
 
   disk {
     slot = 0
-    size = "40G"
+    size = "100G"
     type = "scsi"
     storage = "Group_3"
   }
@@ -100,11 +98,9 @@ resource "proxmox_vm_qemu" "k8s-worker-1" {
     ]
   }
 
-  ipconfig0 = "ip=#{ system.cidr[:-5] }#.15${count.index + 1}/24,gw=#{ system.gateway_addr }#"
-  searchdomain = "k8s-worker-${count.index + 1}.local"
-  nameserver = "#{ system.nameserver }#"
+  ipconfig0 = "ip={{ system.cidr[:-5] }}.${150 + count.index}/24,gw={{ system.gateway_addr }}"
 
-  ssh_user = "sinless777"
+  ssh_user = "{{ ssh.username }}"
   sshkeys = <<EOF
   ${var.ssh_key}
   EOF
