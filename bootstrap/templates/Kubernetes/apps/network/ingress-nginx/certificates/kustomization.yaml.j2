@@ -1,0 +1,10 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./staging.yaml
+  # - ./production.yaml
+  {% if cloudflare.tunnels[0].ssl.acme_production_enabled %}
+  # - ./staging.yaml
+  - ./production.yaml
+  {% endif %}

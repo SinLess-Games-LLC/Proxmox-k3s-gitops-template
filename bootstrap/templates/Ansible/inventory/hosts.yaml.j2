@@ -1,0 +1,22 @@
+---
+kubernetes:
+  children:
+    master:
+      hosts:
+        {% for item in bootstrap_nodes.master %}
+        {% if item.controller %}
+        "{{ item.name }}":
+          ansible_user: "{{ item.username }}"
+          ansible_host: "{{ item.address }}"
+        {% endif %}
+        {% endfor %}
+    worker:
+      hosts:
+        {% for item in bootstrap_nodes.worker %}
+        {% if not item.controller %}
+        "{{ item.name }}":
+          ansible_user: "{{ item.username }}"
+          ansible_host: "{{ item.address }}"
+        {% endif %}
+        {% endfor %}
+
