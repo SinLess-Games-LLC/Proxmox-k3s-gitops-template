@@ -132,11 +132,6 @@ proxmox:
     # (Advanced) If you are using a non-standard port for the proxmox api (default is 8006
     port:
     api_tokens:
-      packer:
-        # This is the user id of the proxmox server api
-        token_id:
-        # This is the user secret of the proxmox server api
-        token_secret:
       terraform:
         token_id:
         token_secret:
