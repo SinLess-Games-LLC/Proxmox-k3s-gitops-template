@@ -76,7 +76,7 @@ You have two different options for setting up your local workstation.
 
 6. click the Api Token tab and click add
 
-    ![api-token](./docs/proxmox.png){ width=500px align=center }
+    ![api-token](./docs/proxmox.png)
 
 7. Fill out the form and click add
 
