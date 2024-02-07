@@ -83,9 +83,7 @@ You have two different options for setting up your local workstation.
 
 6. click the Api Token tab and click add
 
-    <div align=center>
-      <img src="./docs/proxmox.png" alt="api-token" width="500"/>
-    </div>
+    <img align=center src="./docs/proxmox.png" alt="api-token" width="500"/>
 
 7. Fill out the form and click add
 
@@ -337,13 +335,18 @@ The `external-dns` application created in the `networking` namespace will handle
 
 > [!TIP]
 > Below is how to configure a Pi-hole for split DNS. Other platforms should be similar.
+>
 > 1. Apply this file on the Pihole server while substituting the variables
-> ```sh
-> # /etc/dnsmasq.d/99-k8s-gateway-forward.conf
-> server=/${bootstrap_cloudflare_domain}/${bootstrap_k8s_gateway_addr}
-> ```
+>
+>     ```sh
+>     # /etc/dnsmasq.d/99-k8s-gateway-forward.conf
+>     server=/${bootstrap_cloudflare_domain}/${bootstrap_k8s_gateway_addr}
+>     ```
+>
 > 2. Restart dnsmasq on the server.
+>
 > 3. Query an internal-only subdomain from your workstation (any `internal` class ingresses): `dig @${home-dns-server-ip} echo-server-internal.${bootstrap_cloudflare_domain}`. It should resolve to `${bootstrap_internal_ingress_addr}`.
+>
 
 If you're having trouble with DNS be sure to check out these two GitHub discussions: [Internal DNS](https://github.com/onedr0p/cluster-template/discussions/719) and [Pod DNS resolution broken](https://github.com/onedr0p/cluster-template/discussions/635).
 
