@@ -311,7 +311,7 @@ You have two different options for setting up your local workstation.
 
 ### 🎤 Flux w/ Cloudflare verification Steps
 
-_Mic check, 1, 2_ - In a few moments applications should be lighting up like Christmas in July 🎄
+  _Mic check, 1, 2_ - In a few moments applications should be lighting up like Christmas in July 🎄
 
 1. Output all the common resources in your cluster.
 
@@ -326,22 +326,6 @@ _Mic check, 1, 2_ - In a few moments applications should be lighting up like Chr
 3. 🏆 **Congratulations** if all goes smooth you will have a Kubernetes cluster managed by Flux and your Git repository is driving the state of your cluster.
 
 4. 🧠 Now it's time to pause and go get some motel motor oil ☕ and admire you made it this far!### 🎤 Flux w/ Cloudflare verification Steps
-
-_Mic check, 1, 2_ - In a few moments applications should be lighting up like Christmas in July 🎄
-
-1. Output all the common resources in your cluster.
-
-    📍 _Feel free to use the provided [kubernetes tasks](.taskfiles/Kubernetes/Taskfile.yaml) for validation of cluster resources or continue to get familiar with the `kubectl` and `flux` CLI tools._
-
-    ```sh
-    task kubernetes:resources
-    ```
-
-2. ⚠️ It might take `cert-manager` awhile to generate certificates, this is normal so be patient.
-
-3. 🏆 **Congratulations** if all goes smooth you will have a Kubernetes cluster managed by Flux and your Git repository is driving the state of your cluster.
-
-4. 🧠 Now it's time to pause and go get some motel motor oil ☕ and admire you made it this far!
 
 #### 🌐 Public DNS
 
