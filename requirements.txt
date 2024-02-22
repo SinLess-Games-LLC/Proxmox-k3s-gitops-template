@@ -2,7 +2,7 @@ ansible==9.2.0
 ansible-lint==6.22.2
 ansible-creator==24.1.0
 email-validator==2.1.0.post1
-cloudflare==2.17.0
+cloudflare==2.19.2
 jmespath==1.0.1
 bcrypt==4.1.2
 jmespath==1.0.1
