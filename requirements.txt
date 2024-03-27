@@ -1,4 +1,4 @@
-ansible==9.2.0
+ansible==9.4.0
 ansible-lint==24.2.0
 ansible-creator==24.2.0
 email-validator==2.1.0.post1
