@@ -10,6 +10,6 @@ makejinja==2.5.0
 netaddr==1.2.1
 openshift==0.13.2
 passlib==1.7.4
-cryptography==42.0.5
+cryptography==42.0.8
 passlib==1.7.4
 paramiko==3.4.0
