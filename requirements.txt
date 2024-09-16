@@ -12,4 +12,4 @@ openshift==0.13.2
 passlib==1.7.4
 cryptography==42.0.8
 passlib==1.7.4
-paramiko==3.4.0
+paramiko==3.5.0
