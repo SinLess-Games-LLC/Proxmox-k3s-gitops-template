@@ -1,5 +1,5 @@
 ansible==10.1.0
-ansible-lint==24.6.1
+ansible-lint==24.9.2
 ansible-creator==24.6.1
 email-validator==2.2.0
 cloudflare==3.0.1
